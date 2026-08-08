@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdfbf7;
+  --foreground: #000000;
+  
+  --neo-yellow: #fde047;
+  --neo-pink: #f9a8d4;
+  --neo-cyan: #67e8f9;
+  --neo-lime: #bef264;
+  --neo-violet: #c4b5fd;
+  --neo-orange: #fb923c;
+  --neo-red: #fca5a5;
+  --neo-blue: #93c5fd;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit);
+  --font-heading: var(--font-space-grotesk);
+  
+  --color-neo-yellow: var(--neo-yellow);
+  --color-neo-pink: var(--neo-pink);
+  --color-neo-cyan: var(--neo-cyan);
+  --color-neo-lime: var(--neo-lime);
+  --color-neo-violet: var(--neo-violet);
+  --color-neo-orange: var(--neo-orange);
+  --color-neo-red: var(--neo-red);
+  --color-neo-blue: var(--neo-blue);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit, system-ui, sans-serif);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk, var(--font-outfit), system-ui, sans-serif);
+  font-weight: 700;
+}
+
+/* Custom Scrollbar Neobrutalism */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-left: 2px solid #000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neo-yellow);
+  border: 2px solid #000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neo-pink);
+}
+
+::selection {
+  background-color: var(--neo-cyan);
+  color: #000;
+}
+
+/* Neobrutalism Utilities */
+.neo-border {
+  border: 3px solid #000;
+}
+
+.neo-shadow {
+  box-shadow: 4px 4px 0px 0px #000;
+}
+
+.neo-card {
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px 0px #000;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.neo-card:hover {
+  box-shadow: 6px 6px 0px 0px #000;
+  transform: translate(-2px, -2px);
+}
+
+.neo-btn {
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px 0px #000;
+  border-radius: 0.5rem;
+  transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.neo-btn:hover {
+  box-shadow: 6px 6px 0px 0px #000;
+  transform: translate(-2px, -2px);
+}
+
+.neo-btn:active {
+  box-shadow: 0px 0px 0px 0px #000;
+  transform: translate(4px, 4px);
+}
+
+.neo-pill {
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0px 0px #000;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+.neo-input {
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0px 0px #000;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.neo-input:focus {
+  outline: none;
+  box-shadow: 5px 5px 0px 0px #000;
+  transform: translate(-2px, -2px);
+}
