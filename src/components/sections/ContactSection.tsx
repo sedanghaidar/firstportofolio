@@ -90,7 +90,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative bg-neo-pink py-24 px-6 lg:px-8 border-b-4 border-black"
+      className="relative bg-neo-pink py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
     >
       <div className="mx-auto max-w-6xl">
         {/* Header */}
@@ -101,12 +101,12 @@ export function ContactSection() {
           transition={{ duration: 0.5 }}
           className="mb-16 md:mb-20 text-center"
         >
-          <div className="inline-block bg-white px-8 py-4 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-1">
-            <h2 className="text-4xl md:text-6xl font-black text-black uppercase">
+          <div className="inline-block bg-white px-4 sm:px-8 py-3 sm:py-4 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-1">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-black uppercase">
               Get In Touch
             </h2>
           </div>
-          <p className="mt-4 text-xl font-bold text-black max-w-2xl mx-auto bg-neo-yellow p-4 neo-border shadow-[4px_4px_0_0_#000] -rotate-1">
+          <p className="mt-4 text-base sm:text-xl font-bold text-black max-w-2xl mx-auto bg-neo-yellow p-3 sm:p-4 neo-border shadow-[4px_4px_0_0_#000] -rotate-1">
             Tertarik untuk berkolaborasi atau punya pertanyaan? Saya terbuka
             untuk peluang baru dan diskusi menarik.
           </p>
@@ -129,21 +129,21 @@ export function ContactSection() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="neo-btn flex items-center gap-6 bg-white p-4 group"
+                  className="neo-btn flex items-center gap-3 sm:gap-6 bg-white p-3 sm:p-4 group"
                 >
                   <div
                     className={cn(
-                      "flex h-14 w-14 shrink-0 items-center justify-center border-3 border-black shadow-[3px_3px_0_0_#000] group-hover:-translate-y-1 group-hover:shadow-[5px_5px_0_0_#000] transition-all",
+                      "flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center border-3 border-black shadow-[3px_3px_0_0_#000] group-hover:-translate-y-1 group-hover:shadow-[5px_5px_0_0_#000] transition-all",
                       link.bgColor
                     )}
                   >
-                    <Icon className="h-6 w-6 text-black stroke-[3]" />
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-black stroke-[3]" />
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-black uppercase tracking-widest text-neutral-500 mb-1">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm font-black uppercase tracking-widest text-neutral-500 mb-1">
                       {link.label}
                     </p>
-                    <p className="text-lg font-black text-black truncate group-hover:underline decoration-4 underline-offset-4">
+                    <p className="text-sm sm:text-lg font-black text-black truncate group-hover:underline decoration-4 underline-offset-4">
                       {link.value}
                     </p>
                   </div>
@@ -161,9 +161,9 @@ export function ContactSection() {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="neo-card bg-neo-cyan p-8 md:p-10 shadow-[8px_8px_0_0_#000]"
+              className="neo-card bg-neo-cyan p-5 sm:p-8 md:p-10 shadow-[8px_8px_0_0_#000]"
             >
-              <h3 className="mb-8 text-3xl font-black text-black uppercase bg-white inline-block px-4 py-2 border-4 border-black shadow-[4px_4px_0_0_#000] -rotate-2">
+              <h3 className="mb-6 sm:mb-8 text-2xl sm:text-3xl font-black text-black uppercase bg-white inline-block px-4 py-2 border-4 border-black shadow-[4px_4px_0_0_#000] -rotate-2">
                 Kirim Pesan
               </h3>
 

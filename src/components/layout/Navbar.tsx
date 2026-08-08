@@ -49,10 +49,10 @@ export function Navbar() {
       <header
         className={cn(
           "fixed top-0 z-50 w-full bg-background transition-all duration-200",
-          scrolled ? "border-b-4 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] py-2" : "py-4 border-b-4 border-transparent"
+          scrolled ? "border-b-4 border-black shadow-[0_4px_0_0_rgba(0,0,0,1)] py-2" : "py-3 sm:py-4 border-b-4 border-transparent"
         )}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 lg:px-8">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <button
             onClick={() => scrollTo("#home")}
@@ -121,7 +121,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed inset-x-0 top-16 z-40 bg-neo-yellow border-b-4 border-black p-6 shadow-[0_8px_0_0_rgba(0,0,0,1)] md:hidden"
+            className="fixed inset-x-0 top-[57px] z-40 bg-neo-yellow border-b-4 border-black p-4 sm:p-6 shadow-[0_8px_0_0_rgba(0,0,0,1)] md:hidden"
           >
             <nav className="flex flex-col gap-3">
               {navLinks.map((link) => {

@@ -25,7 +25,7 @@ export function EducationSection() {
   return (
     <section
       id="education"
-      className="relative bg-white py-24 px-6 lg:px-8 border-b-4 border-black"
+      className="relative bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
     >
       {/* Background pattern */}
       <div
@@ -44,10 +44,10 @@ export function EducationSection() {
           initial={{ opacity: 0, x: -20 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="mb-16 md:mb-20"
+          className="mb-12 md:mb-20"
         >
-          <div className="inline-block bg-neo-orange px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 -rotate-1">
-            <h2 className="text-4xl md:text-5xl font-black text-black uppercase">
+          <div className="inline-block bg-neo-orange px-4 sm:px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 -rotate-1">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black uppercase">
               Education & Certs
             </h2>
           </div>
@@ -128,20 +128,20 @@ export function EducationSection() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.4, delay: index * 0.1, type: "spring", stiffness: 200 }}
                   className={cn(
-                    "neo-card flex items-center gap-4 p-5 md:p-6",
+                    "neo-card flex items-center gap-3 sm:gap-4 p-4 sm:p-5 md:p-6",
                     bgColor
                   )}
                 >
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center bg-white neo-border shadow-[3px_3px_0_0_#000]">
-                    <Icon className="h-6 w-6 text-black stroke-[3]" />
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center bg-white neo-border shadow-[3px_3px_0_0_#000]">
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-black stroke-[3]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-lg font-black text-black leading-tight uppercase">
+                    <p className="text-base sm:text-lg font-black text-black leading-tight uppercase">
                       {cert.title}
                     </p>
-                    <p className="text-sm font-bold text-black/70 mt-1 uppercase tracking-wide">{cert.issuer}</p>
+                    <p className="text-xs sm:text-sm font-bold text-black/70 mt-1 uppercase tracking-wide">{cert.issuer}</p>
                   </div>
-                  <span className="shrink-0 bg-white border-2 border-black px-3 py-1.5 text-sm font-black text-black shadow-[2px_2px_0_0_#000]">
+                  <span className="shrink-0 bg-white border-2 border-black px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-black text-black shadow-[2px_2px_0_0_#000]">
                     {cert.year}
                   </span>
                 </motion.div>

@@ -33,39 +33,39 @@ function TimelineItem({ item, index }: { item: Experience; index: number }) {
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: index * 0.1, type: "spring", stiffness: 200 }}
-      className="relative flex gap-6 pb-16 last:pb-0"
+      className="relative flex gap-3 sm:gap-6 pb-12 sm:pb-16 last:pb-0"
     >
       {/* Timeline line + dot */}
       <div className="flex flex-col items-center">
         <div
           className={cn(
-            "relative z-10 flex h-14 w-14 shrink-0 items-center justify-center bg-white neo-border shadow-[4px_4px_0_0_#000]"
+            "relative z-10 flex h-10 w-10 sm:h-14 sm:w-14 shrink-0 items-center justify-center bg-white neo-border shadow-[4px_4px_0_0_#000]"
           )}
         >
-          <Icon className="h-6 w-6 text-black stroke-[3]" />
+          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-black stroke-[3]" />
         </div>
         {/* Vertical line */}
         <div className="mt-2 w-1.5 flex-1 bg-black border-x border-black" />
       </div>
 
       {/* Content Card */}
-      <div className="flex-1 pb-4">
-        <div className="neo-card bg-white p-6 md:p-8">
+      <div className="flex-1 pb-4 min-w-0">
+        <div className="neo-card bg-white p-4 sm:p-6 md:p-8">
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className={cn("neo-pill px-3 py-1 text-sm text-black border-2", bgColor)}>
               {item.duration}
             </span>
           </div>
-          <h3 className="mb-2 text-2xl font-black text-black leading-tight">{item.role}</h3>
-          <p className="mb-4 text-lg font-bold text-neutral-600 border-b-4 border-black pb-4 inline-block w-full">
+          <h3 className="mb-2 text-xl sm:text-2xl font-black text-black leading-tight">{item.role}</h3>
+          <p className="mb-4 text-base sm:text-lg font-bold text-neutral-600 border-b-4 border-black pb-4 inline-block w-full">
             {item.company}
           </p>
-          <p className="mb-6 text-base font-semibold text-black leading-relaxed">
+          <p className="mb-6 text-sm sm:text-base font-semibold text-black leading-relaxed">
             {item.description}
           </p>
           <ul className="space-y-3">
             {item.bullets.map((bullet, i) => (
-              <li key={i} className="flex items-start gap-3 text-base font-medium text-black">
+              <li key={i} className="flex items-start gap-3 text-sm sm:text-base font-medium text-black">
                 <span className="mt-2 h-2.5 w-2.5 shrink-0 bg-black border border-black shadow-[2px_2px_0_0_#000]" />
                 {bullet}
               </li>
@@ -84,7 +84,7 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="relative bg-[#fdfbf7] py-24 px-6 lg:px-8 border-b-4 border-black"
+      className="relative bg-[#fdfbf7] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
     >
       <div className="mx-auto max-w-4xl">
         {/* Section header */}

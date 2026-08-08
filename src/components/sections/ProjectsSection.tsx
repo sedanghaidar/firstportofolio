@@ -119,7 +119,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative bg-neo-blue py-24 px-6 lg:px-8 border-b-4 border-black"
+      className="relative bg-neo-blue py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
     >
       {/* Background pattern */}
       <div
@@ -139,8 +139,8 @@ export function ProjectsSection() {
           transition={{ duration: 0.5 }}
           className="mb-16 text-center"
         >
-          <div className="inline-block bg-white px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6">
-            <h2 className="text-4xl md:text-5xl font-black text-black uppercase">
+          <div className="inline-block bg-white px-4 sm:px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black uppercase">
               Featured Projects
             </h2>
           </div>

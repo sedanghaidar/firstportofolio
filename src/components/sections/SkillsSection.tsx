@@ -43,7 +43,7 @@ export function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative bg-[#fdfbf7] py-24 px-6 lg:px-8 border-b-4 border-black"
+      className="relative bg-[#fdfbf7] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
     >
       <div className="mx-auto max-w-6xl">
         {/* Header */}
@@ -54,8 +54,8 @@ export function SkillsSection() {
           transition={{ duration: 0.5 }}
           className="mb-16 md:mb-20 text-center"
         >
-          <div className="inline-block bg-neo-pink px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-2">
-            <h2 className="text-4xl md:text-5xl font-black text-black uppercase">
+          <div className="inline-block bg-neo-pink px-4 sm:px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-2">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black uppercase">
               Technical Expertise
             </h2>
           </div>

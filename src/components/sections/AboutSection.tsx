@@ -56,7 +56,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="relative bg-white py-24 px-6 lg:px-8 border-b-4 border-black"
+      className="relative bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section header */}
