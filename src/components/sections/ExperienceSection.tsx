@@ -1,117 +1,90 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Experience } from "@/data/types";
-import { Code2, BookOpen, Palette, Server } from "lucide-react";
+import { motion } from "framer-motion";
 import { experiences } from "@/data/portfolio";
-import { cn } from "@/lib/utils";
+import { Briefcase, Code, Palette, BookOpen } from "lucide-react";
 
 const categoryIcons = {
-  code: Code2,
-  teaching: BookOpen,
+  engineering: Code,
+  management: Briefcase,
   design: Palette,
-  it: Server,
+  teaching: BookOpen,
 };
-
-const bgColors = {
-  code: "bg-neo-cyan",
-  teaching: "bg-neo-violet",
-  design: "bg-neo-pink",
-  it: "bg-neo-lime",
-};
-
-function TimelineItem({ item, index }: { item: Experience; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const Icon = categoryIcons[item.category] ?? Code2;
-  const bgColor = bgColors[item.category] ?? bgColors.code;
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.1, type: "spring", stiffness: 200 }}
-      className="relative flex gap-3 sm:gap-6 pb-12 sm:pb-16 last:pb-0"
-    >
-      {/* Timeline line + dot */}
-      <div className="flex flex-col items-center">
-        <div
-          className={cn(
-            "relative z-10 flex h-10 w-10 sm:h-14 sm:w-14 shrink-0 items-center justify-center bg-white neo-border shadow-[4px_4px_0_0_#000]"
-          )}
-        >
-          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-black stroke-[3]" />
-        </div>
-        {/* Vertical line */}
-        <div className="mt-2 w-1.5 flex-1 bg-black border-x border-black" />
-      </div>
-
-      {/* Content Card */}
-      <div className="flex-1 pb-4 min-w-0">
-        <div className="neo-card bg-white p-4 sm:p-6 md:p-8">
-          <div className="mb-4 flex flex-wrap items-center gap-3">
-            <span className={cn("neo-pill px-3 py-1 text-sm text-black border-2", bgColor)}>
-              {item.duration}
-            </span>
-          </div>
-          <h3 className="mb-2 text-xl sm:text-2xl font-black text-black leading-tight">{item.role}</h3>
-          <p className="mb-4 text-base sm:text-lg font-bold text-neutral-600 border-b-4 border-black pb-4 inline-block w-full">
-            {item.company}
-          </p>
-          <p className="mb-6 text-sm sm:text-base font-semibold text-black leading-relaxed">
-            {item.description}
-          </p>
-          <ul className="space-y-3">
-            {item.bullets.map((bullet, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm sm:text-base font-medium text-black">
-                <span className="mt-2 h-2.5 w-2.5 shrink-0 bg-black border border-black shadow-[2px_2px_0_0_#000]" />
-                {bullet}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 export function ExperienceSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section
-      id="experience"
-      className="relative bg-[#fdfbf7] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
-    >
-      <div className="mx-auto max-w-4xl">
-        {/* Section header */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16 md:mb-20 text-center"
-        >
-          <div className="inline-block bg-neo-lime px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-1">
-            <h2 className="text-4xl md:text-5xl font-black text-black uppercase">
-              Work & Activities
+    <section id="experience" className="relative bg-[#0A0A0A] py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-white/10">
+      <div className="mx-auto max-w-6xl">
+        {/* Section Header */}
+        <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="font-mono text-xs font-semibold text-[#8B7CFF] uppercase tracking-wider block mb-2">
+              04 / EXPERIENCE
+            </span>
+            <h2 className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight uppercase">
+              CAREER & ROLES.
             </h2>
           </div>
-          <p className="mt-6 text-lg font-bold text-neutral-800 max-w-2xl mx-auto border-2 border-black bg-white p-4 shadow-[4px_4px_0_0_#000]">
-            Perjalanan profesional dan pengalaman organisasi yang telah membentuk
-            kemampuan saya sebagai developer dan kolaborator.
+          <p className="text-[#8A8A8A] text-sm max-w-md font-sans leading-relaxed">
+            Professional development, engineering internships, leadership, and instructional experience.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="relative">
-          {experiences.map((item, index) => (
-            <TimelineItem key={item.id} item={item} index={index} />
-          ))}
+        {/* Minimalist Timeline */}
+        <div className="relative pl-6 sm:pl-10 space-y-12 border-l border-white/10">
+          {experiences.map((exp, index) => {
+            const Icon = categoryIcons[exp.category] || Briefcase;
+            return (
+              <motion.div
+                key={exp.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative group"
+              >
+                {/* Timeline Dot */}
+                <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 h-3 w-3 rounded-full bg-[#0A0A0A] border-2 border-[#8B7CFF] group-hover:bg-[#8B7CFF] transition-colors" />
+
+                {/* Main Content Box */}
+                <div className="editorial-card p-6 sm:p-8 hover:border-[#8B7CFF]/40 transition-all">
+                  {/* Top Bar */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-3 font-mono text-xs text-[#8A8A8A]">
+                    <div className="flex items-center gap-2">
+                      <Icon className="h-3.5 w-3.5 text-[#8B7CFF]" />
+                      <span className="text-[#8B7CFF] font-semibold uppercase">
+                        {exp.company} {exp.location ? `| ${exp.location}` : ""}
+                      </span>
+                    </div>
+                    <span>{exp.duration}</span>
+                  </div>
+
+                  {/* Role Title */}
+                  <h3 className="font-display font-bold text-2xl text-white mb-3">
+                    {exp.role}
+                  </h3>
+
+                  {/* Summary Description */}
+                  <p className="font-sans text-base text-[#8A8A8A] leading-relaxed mb-6">
+                    {exp.description}
+                  </p>
+
+                  {/* Bullet Impact Points */}
+                  <ul className="space-y-2 border-t border-white/5 pt-4">
+                    {exp.bullets.map((bullet, idx) => (
+                      <li key={idx} className="flex items-start gap-3 font-sans text-sm text-[#8A8A8A]">
+                        <span className="text-[#8B7CFF] font-mono text-xs mt-1.5">•</span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+

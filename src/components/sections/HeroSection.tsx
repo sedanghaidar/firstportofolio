@@ -1,9 +1,106 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowDown, ExternalLink, MessageCircle } from "lucide-react";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { Typewriter } from "@/components/ui/typewriter";
+import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Download } from "lucide-react";
+import { SpotlightGrid } from "@/components/ui/spotlight-grid";
+
+const ROLES = ["SOFTWARE DEVELOPER", "DATA ANALYST", "AI ENTHUSIAST"];
+
+function DynamicRole() {
+  const prefersReducedMotion = useReducedMotion();
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setCurrentText(ROLES[0]);
+      return;
+    }
+
+    const fullRole = ROLES[roleIndex];
+    let timeoutId: NodeJS.Timeout;
+
+    if (!isDeleting && currentText === fullRole) {
+      timeoutId = setTimeout(() => setIsDeleting(true), 1800);
+    } else if (isDeleting && currentText === "") {
+      setIsDeleting(false);
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+    } else {
+      const speed = isDeleting ? 50 : 85;
+      timeoutId = setTimeout(() => {
+        setCurrentText((prev) =>
+          isDeleting
+            ? fullRole.slice(0, prev.length - 1)
+            : fullRole.slice(0, prev.length + 1)
+        );
+      }, speed);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [currentText, isDeleting, roleIndex, prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return <span>{ROLES[0]}</span>;
+  }
+
+  return (
+    <span className="inline-flex items-center font-mono">
+      <span className="text-[#8B7CFF]">{currentText || "\u00A0"}</span>
+      <motion.span
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+        className="text-white font-mono font-light ml-1 inline-block"
+        aria-hidden="true"
+      >
+        |
+      </motion.span>
+    </span>
+  );
+}
+
+function MinimalLiveClock() {
+  const [timeStr, setTimeStr] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const formatted = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Jakarta",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }).format(now);
+      setTimeStr(formatted);
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.55 }}
+      className="w-full border-t border-white/10 pt-4 pb-6 mt-auto relative z-10"
+    >
+      <div
+        style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+        className="mx-auto max-w-6xl flex items-center justify-between gap-4 text-xs text-[#8A8A8A] tracking-normal select-none"
+      >
+        <div className="flex items-center gap-2.5">
+          <span className="text-[#8B7CFF] font-medium">[{timeStr || "19:46:42"} WIB]</span>
+          <span className="text-white/20">•</span>
+          <span className="text-white/70">Yogyakarta, ID 🇮🇩</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export function HeroSection() {
   const scrollTo = (id: string) => {
@@ -13,104 +110,82 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4 pt-28 pb-20 sm:px-6 sm:pt-32 sm:pb-24 lg:px-8"
+      className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-[#0A0A0A] px-6 sm:px-10 lg:px-16 xl:px-20 pt-28 pb-2"
     >
-      {/* Background Grid Pattern (Neobrutalism style) */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(#000 1.5px, transparent 1.5px), linear-gradient(90deg, #000 1.5px, transparent 1.5px)`,
-          backgroundSize: "60px 60px",
-          opacity: 0.05
-        }}
-      />
+      {/* Interactive Dot & Spotlight Background */}
+      <SpotlightGrid />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
-
-        {/* Status Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
+      <div className="relative z-10 mx-auto max-w-6xl w-full my-auto pt-8 pb-12">
+        {/* 1. Greeting */}
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8 flex items-center gap-3 rounded-full border-4 border-black bg-neo-lime px-6 py-2.5 shadow-[4px_4px_0_0_#000]"
+          className="text-xl sm:text-2xl md:text-3xl font-medium text-[#8A8A8A] mb-4 tracking-tight flex items-center gap-2"
         >
-          <span className="relative flex h-3 w-3">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black opacity-75" />
-            <span className="relative inline-flex h-3 w-3 rounded-full bg-black" />
-          </span>
-          <span className="text-sm font-bold text-black uppercase tracking-wide">Available for Work</span>
-        </motion.div>
-
-        {/* Hero Title container */}
-        <div className="mb-6 mt-8 sm:mt-10 relative w-full">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative sm:absolute sm:-top-10 sm:left-0 md:-top-12 md:-left-8 sm:-rotate-6 bg-neo-yellow neo-border px-3 py-1 shadow-[4px_4px_0_0_#000] z-20 self-start mb-3 sm:mb-0 inline-block"
+          <span>Hi, I'm <span className="text-white font-semibold">Achmad Haidar</span></span>
+          <motion.span
+            animate={{ rotate: [0, 20, -10, 20, -5, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut", repeatDelay: 1 }}
+            className="inline-block origin-[70%_70%] text-2xl sm:text-3xl md:text-4xl"
+            role="img"
+            aria-label="waving hand"
           >
-            <span className="font-black text-lg md:text-xl">Hello! 👋</span>
-          </motion.div>
+            👋
+          </motion.span>
+        </motion.p>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black tracking-tighter uppercase leading-tight md:leading-none">
-            Achmad Haidar Tamimi<span className="text-neo-cyan text-stroke-black relative inline-block">
+        {/* 2. Animated Role */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="font-mono font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase leading-tight mb-6 min-h-[1.2em] flex items-center"
+        >
+          <DynamicRole />
+        </motion.h1>
 
-            </span>
-          </h1>
-        </div>
-
-        {/* Tagline */}
-        <motion.div
+        {/* 3. Short Description */}
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mb-8 mt-4 sm:mt-6 inline-block bg-black px-4 sm:px-6 py-2.5 sm:py-3"
+          className="text-base sm:text-lg text-[#8A8A8A] font-sans font-normal leading-relaxed max-w-xl mb-10 whitespace-pre-line"
         >
-          <div className="text-base sm:text-xl md:text-2xl font-bold text-white uppercase tracking-wider h-7 sm:h-8">
-            <Typewriter texts={["Software Developer", "Web Developer", "Data Analyst"]} />
-          </div>
-        </motion.div>
+          {"I enjoy turning ideas and problems\ninto practical digital products."}
+        </motion.p>
 
-        {/* CTA Buttons */}
+        {/* 4. CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto"
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
         >
           <button
-            id="hero-cta-projects"
+            id="hero-cta-work"
             onClick={() => scrollTo("projects")}
-            className="flex w-full sm:w-auto items-center justify-center gap-3 bg-neo-cyan px-10 py-4 text-lg neo-btn text-black hover:bg-white"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#8B7CFF] text-black font-mono text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-[#9F92FF] transition-all transform hover:-translate-y-0.5"
           >
-            <ExternalLink className="h-5 w-5 stroke-[3]" />
-            Lihat Proyek
+            <span>VIEW WORK</span>
+            <ArrowUpRight className="h-4 w-4 stroke-[2.5]" />
           </button>
 
-          <button
-            id="hero-cta-contact"
-            onClick={() => scrollTo("contact")}
-            className="flex w-full sm:w-auto items-center justify-center gap-3 bg-white px-10 py-4 text-lg neo-btn text-black hover:bg-neo-yellow"
+          <a
+            href="/cv-achmad-haidar-tamimi.pdf"
+            download
+            id="hero-cta-cv"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/5 border border-white/10 text-white hover:bg-white/10 font-mono text-xs font-bold uppercase tracking-wider rounded-xl transition-all transform hover:-translate-y-0.5"
           >
-            <MessageCircle className="h-5 w-5 stroke-[3]" />
-            Hubungi Saya
-          </button>
+            <Download className="h-4 w-4 stroke-[2.5]" />
+            <span>DOWNLOAD CV</span>
+          </a>
         </motion.div>
-
-        {/* Scroll down indicator */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          onClick={() => scrollTo("about")}
-          className="mt-12 sm:mt-24 flex flex-col items-center gap-3 group"
-          aria-label="Scroll to About section"
-        >
-          <div className="flex h-12 w-12 items-center justify-center bg-white neo-border shadow-[4px_4px_0_0_#000] group-hover:translate-y-2 transition-transform duration-300">
-            <ArrowDown className="h-6 w-6 text-black stroke-[3]" />
-          </div>
-        </motion.button>
       </div>
+
+      {/* 5. Minimalist Live Clock */}
+      <MinimalLiveClock />
     </section>
   );
 }
+

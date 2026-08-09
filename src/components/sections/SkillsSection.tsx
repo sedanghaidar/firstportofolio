@@ -1,107 +1,54 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Server, Monitor, Database, Wrench, Users } from "lucide-react";
-import { skillGroups } from "@/data/portfolio";
-import { cn } from "@/lib/utils";
-
-const iconMap: Record<string, React.ElementType> = {
-  server: Server,
-  monitor: Monitor,
-  database: Database,
-  tool: Wrench,
-  users: Users,
-};
-
-const bgColors = [
-  "bg-neo-pink",
-  "bg-neo-cyan",
-  "bg-neo-yellow",
-  "bg-neo-lime",
-  "bg-neo-red",
-];
-
-function SkillBadge({ skill, index }: { skill: string; index: number }) {
-  return (
-    <motion.span
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3, delay: index * 0.05, type: "spring", stiffness: 300 }}
-      className="bg-white border-2 border-black px-4 py-2 text-sm font-black text-black shadow-[2px_2px_0_0_#000] hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-default uppercase"
-    >
-      {skill}
-    </motion.span>
-  );
-}
+import { motion } from "framer-motion";
+import { skillCategories } from "@/data/portfolio";
 
 export function SkillsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section
-      id="skills"
-      className="relative bg-[#fdfbf7] py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
-    >
+    <section id="skills" className="relative bg-[#0A0A0A] py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-white/10">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16 md:mb-20 text-center"
-        >
-          <div className="inline-block bg-neo-pink px-4 sm:px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-2">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black uppercase">
-              Technical Expertise
+        {/* Section Header */}
+        <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="font-mono text-xs font-semibold text-[#8B7CFF] uppercase tracking-wider block mb-2">
+              04 / SKILLS
+            </span>
+            <h2 className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight uppercase">
+              TECHNICAL STACK.
             </h2>
           </div>
-        </motion.div>
+          <p className="text-[#8A8A8A] text-sm max-w-md font-sans leading-relaxed">
+            Functional tools, languages, frameworks, databases, and machine learning infrastructure.
+          </p>
+        </div>
 
-        {/* Skill groups */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group, gIndex) => {
-            const Icon = iconMap[group.icon] ?? Server;
-            const bgColor = bgColors[gIndex % bgColors.length];
+        {/* Categories Stack */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skillCategories.map((catGroup, index) => (
+            <motion.div
+              key={catGroup.category}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="editorial-card p-6 sm:p-8"
+            >
+              <h3 className="font-mono text-xs font-bold text-[#8B7CFF] uppercase tracking-widest border-b border-white/10 pb-3 mb-6">
+                {catGroup.category}
+              </h3>
 
-            return (
-              <motion.div
-                key={group.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.4, delay: gIndex * 0.1, type: "spring", stiffness: 200 }}
-                className={cn(
-                  "neo-card p-6 md:p-8",
-                  bgColor,
-                  // Soft skills card spans full width on lg
-                  group.icon === "users" && "sm:col-span-2 lg:col-span-3"
-                )}
-              >
-                {/* Group header */}
-                <div className="mb-6 flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center bg-white neo-border shadow-[3px_3px_0_0_#000]">
-                    <Icon className="h-6 w-6 text-black stroke-[3]" />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-black text-black uppercase tracking-wide bg-white px-2 py-1 neo-border shadow-[2px_2px_0_0_#000]">
-                    {group.label}
-                  </h3>
-                </div>
-
-                {/* Skill badges */}
-                <div className="flex flex-wrap gap-3">
-                  {group.skills.map((skill, sIndex) => (
-                    <SkillBadge key={skill} skill={skill} index={sIndex} />
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+              <div className="flex flex-wrap gap-2.5">
+                {catGroup.skills.map((skill) => (
+                  <span key={skill} className="tech-tag text-xs font-mono py-1.5 px-3">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+

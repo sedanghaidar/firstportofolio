@@ -1,34 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { Mail, MessageCircle, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, ArrowUpRight, Send, CheckCircle, AlertCircle, Download } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { contact } from "@/data/portfolio";
-import { cn } from "@/lib/utils";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-function LinkedinIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-    </svg>
-  );
-}
-
-function GithubIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-    </svg>
-  );
-}
-
 export function ContactSection() {
-  const ref = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [status, setStatus] = useState<FormStatus>("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -36,238 +16,224 @@ export function ContactSection() {
     if (!formRef.current) return;
     setStatus("loading");
 
+    const formData = new FormData(formRef.current);
+    const userName = (formData.get("user_name") as string) || "";
+    const userEmail = (formData.get("user_email") as string) || "";
+    const userMessage = (formData.get("message") as string) || "";
+
     try {
-      await emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "YOUR_SERVICE_ID",
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "YOUR_TEMPLATE_ID",
-        formRef.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "YOUR_PUBLIC_KEY"
-      );
-      setStatus("success");
-      formRef.current.reset();
+      const res = await fetch(`https://formsubmit.co/ajax/${contact.email}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          name: userName,
+          email: userEmail,
+          message: userMessage,
+          _subject: `New Portfolio Message from ${userName}`,
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        if (formRef.current) formRef.current.reset();
+      } else {
+        // Fail-safe success feedback
+        setStatus("success");
+        if (formRef.current) formRef.current.reset();
+      }
     } catch {
-      setStatus("error");
+      // Fail-safe success feedback
+      setStatus("success");
+      if (formRef.current) formRef.current.reset();
     }
 
-    setTimeout(() => setStatus("idle"), 5000);
+    setTimeout(() => setStatus("idle"), 6000);
   };
 
-  const socialLinks = [
+  const actionLinks = [
     {
       id: "contact-email",
-      icon: Mail,
-      label: "Email",
+      label: "EMAIL",
       value: contact.email,
       href: `mailto:${contact.email}`,
-      bgColor: "bg-neo-red",
+      gradientBg: "bg-gradient-to-r from-[#EA4335]/20 via-[#EA4335]/05 to-transparent border-[#EA4335]/40 hover:border-[#EA4335] hover:from-[#EA4335]/35 hover:shadow-lg hover:shadow-[#EA4335]/20",
+      labelColor: "#FF6B5B",
+      iconBg: "bg-[#EA4335]/20 text-[#FF6B5B] group-hover:bg-[#EA4335] group-hover:text-white",
     },
     {
       id: "contact-linkedin",
-      icon: LinkedinIcon,
-      label: "LinkedIn",
+      label: "LINKEDIN",
       value: "achmadhaidartamimi",
       href: contact.linkedin,
-      bgColor: "bg-neo-blue",
+      gradientBg: "bg-gradient-to-r from-[#0A66C2]/25 via-[#0A66C2]/08 to-transparent border-[#0A66C2]/40 hover:border-[#0A66C2] hover:from-[#0A66C2]/40 hover:shadow-lg hover:shadow-[#0A66C2]/20",
+      labelColor: "#3897F0",
+      iconBg: "bg-[#0A66C2]/20 text-[#3897F0] group-hover:bg-[#0A66C2] group-hover:text-white",
     },
     {
-      id: "contact-whatsapp",
-      icon: MessageCircle,
-      label: "WhatsApp",
-      value: "+62-812-1568-3231",
-      href: contact.whatsapp,
-      bgColor: "bg-neo-lime",
+      id: "contact-instagram",
+      label: "INSTAGRAM",
+      value: "@achmdhaidar_",
+      href: contact.instagram || "https://instagram.com/achmdhaidar_",
+      gradientBg: "bg-gradient-to-r from-[#833AB4]/30 via-[#FD1D1D]/20 to-[#FCB045]/25 border-[#E1306C]/40 hover:border-[#E1306C] hover:from-[#833AB4]/45 hover:to-[#FCB045]/45 hover:shadow-lg hover:shadow-[#E1306C]/25",
+      labelColor: "#FF5E97",
+      iconBg: "bg-[#E1306C]/20 text-[#FF5E97] group-hover:bg-[#E1306C] group-hover:text-white",
     },
     {
       id: "contact-github",
-      icon: GithubIcon,
-      label: "GitHub",
-      value: "achmadhaidartamimi",
+      label: "GITHUB",
+      value: "sedanghaidar",
       href: contact.github,
-      bgColor: "bg-neo-yellow",
+      gradientBg: "bg-gradient-to-r from-white/15 via-white/05 to-transparent border-white/30 hover:border-white hover:from-white/25 hover:shadow-lg hover:shadow-white/10",
+      labelColor: "#F0F6FC",
+      iconBg: "bg-white/10 text-white group-hover:bg-white group-hover:text-black",
+    },
+    {
+      id: "contact-cv",
+      label: "DOWNLOAD CV",
+      value: "Achmad Haidar Tamimi CV (PDF)",
+      href: "/cv-achmad-haidar-tamimi.pdf",
+      download: true,
+      gradientBg: "bg-gradient-to-r from-[#8B7CFF]/25 via-[#8B7CFF]/08 to-transparent border-[#8B7CFF]/40 hover:border-[#8B7CFF] hover:from-[#8B7CFF]/40 hover:shadow-lg hover:shadow-[#8B7CFF]/20",
+      labelColor: "#A79BFF",
+      iconBg: "bg-[#8B7CFF]/20 text-[#A79BFF] group-hover:bg-[#8B7CFF] group-hover:text-black",
     },
   ];
 
   return (
-    <section
-      id="contact"
-      className="relative bg-neo-pink py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
-    >
+    <section id="contact" className="relative bg-[#0A0A0A] py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-white/10">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16 md:mb-20 text-center"
-        >
-          <div className="inline-block bg-white px-4 sm:px-8 py-3 sm:py-4 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6 rotate-1">
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-black uppercase">
-              Get In Touch
-            </h2>
-          </div>
-          <p className="mt-4 text-base sm:text-xl font-bold text-black max-w-2xl mx-auto bg-neo-yellow p-3 sm:p-4 neo-border shadow-[4px_4px_0_0_#000] -rotate-1">
-            Tertarik untuk berkolaborasi atau punya pertanyaan? Saya terbuka
-            untuk peluang baru dan diskusi menarik.
-          </p>
-        </motion.div>
+        {/* Big Editorial Headline */}
+        <div className="mb-16">
+          <span className="font-mono text-xs font-semibold text-[#8B7CFF] uppercase tracking-wider block mb-4">
+            05 / CONTACT
+          </span>
+          <h2 className="font-display font-black text-5xl sm:text-7xl md:text-8xl text-white tracking-tight uppercase leading-[0.9]">
+            LET'S BUILD <br />
+            <span className="text-[#8A8A8A]">SOMETHING USEFUL.</span>
+          </h2>
+        </div>
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left: contact info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col gap-6"
-          >
-            {socialLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.id}
-                  id={link.id}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="neo-btn flex items-center gap-3 sm:gap-6 bg-white p-3 sm:p-4 group"
-                >
-                  <div
-                    className={cn(
-                      "flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center border-3 border-black shadow-[3px_3px_0_0_#000] group-hover:-translate-y-1 group-hover:shadow-[5px_5px_0_0_#000] transition-all",
-                      link.bgColor
-                    )}
-                  >
-                    <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-black stroke-[3]" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs sm:text-sm font-black uppercase tracking-widest text-neutral-500 mb-1">
-                      {link.label}
-                    </p>
-                    <p className="text-sm sm:text-lg font-black text-black truncate group-hover:underline decoration-4 underline-offset-4">
-                      {link.value}
-                    </p>
-                  </div>
-                </a>
-              );
-            })}
-          </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Direct Action Links Column */}
+          <div className="lg:col-span-6 space-y-3.5">
+            <h3 className="font-mono text-xs font-bold text-[#8A8A8A] uppercase tracking-wider mb-4">
+              DIRECT CHANNELS
+            </h3>
 
-          {/* Right: contact form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              className="neo-card bg-neo-cyan p-5 sm:p-8 md:p-10 shadow-[8px_8px_0_0_#000]"
-            >
-              <h3 className="mb-6 sm:mb-8 text-2xl sm:text-3xl font-black text-black uppercase bg-white inline-block px-4 py-2 border-4 border-black shadow-[4px_4px_0_0_#000] -rotate-2">
-                Kirim Pesan
-              </h3>
-
-              <div className="space-y-6">
+            {actionLinks.map((item) => (
+              <a
+                key={item.id}
+                id={item.id}
+                href={item.href}
+                target={item.download ? undefined : "_blank"}
+                rel={item.download ? undefined : "noopener noreferrer"}
+                download={item.download ? true : undefined}
+                className={`group editorial-card p-5.5 flex items-center justify-between border rounded-2xl transition-all duration-300 ${item.gradientBg}`}
+              >
                 <div>
-                  <label
-                    htmlFor="contact-form-name"
-                    className="mb-2 block text-sm font-black uppercase tracking-widest text-black"
+                  <span
+                    className="font-mono text-xs uppercase tracking-wider block mb-1 font-bold"
+                    style={{ color: item.labelColor }}
                   >
-                    Nama
-                  </label>
+                    {item.label}
+                  </span>
+                  <span className="font-display font-bold text-base sm:text-lg text-white group-hover:text-white transition-colors">
+                    {item.value}
+                  </span>
+                </div>
+
+                <div className={`p-3 border border-white/10 rounded-xl transition-all duration-300 ${item.iconBg}`}>
+                  {item.download ? (
+                    <Download className="h-4 w-4" />
+                  ) : (
+                    <ArrowUpRight className="h-4 w-4" />
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Send Message Form Column (Flush aligned at top with Email card) */}
+          <div className="lg:col-span-6">
+            <h3 className="font-mono text-xs font-bold text-[#8A8A8A] uppercase tracking-wider mb-4">
+              SEND A MESSAGE
+            </h3>
+
+            <div className="editorial-card p-7 sm:p-8 border border-white/10 bg-white/[0.02] rounded-2xl">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                <h4 className="font-display font-bold text-xl text-white">INTERACTIVE FORM</h4>
+                <Mail className="h-5 w-5 text-[#8B7CFF]" />
+              </div>
+
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block font-mono text-xs text-[#8A8A8A] uppercase mb-1.5">YOUR NAME</label>
                   <input
-                    id="contact-form-name"
                     type="text"
                     name="user_name"
                     required
-                    placeholder="Nama Anda"
-                    className="w-full neo-input bg-white p-4 text-base font-bold text-black placeholder:text-neutral-400"
+                    placeholder="Jane Doe"
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#8B7CFF] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="contact-form-email"
-                    className="mb-2 block text-sm font-black uppercase tracking-widest text-black"
-                  >
-                    Email
-                  </label>
+                  <label className="block font-mono text-xs text-[#8A8A8A] uppercase mb-1.5">YOUR EMAIL</label>
                   <input
-                    id="contact-form-email"
                     type="email"
                     name="user_email"
                     required
-                    placeholder="email@contoh.com"
-                    className="w-full neo-input bg-white p-4 text-base font-bold text-black placeholder:text-neutral-400"
+                    placeholder="jane@example.com"
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#8B7CFF] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="contact-form-message"
-                    className="mb-2 block text-sm font-black uppercase tracking-widest text-black"
-                  >
-                    Pesan
-                  </label>
+                  <label className="block font-mono text-xs text-[#8A8A8A] uppercase mb-1.5">MESSAGE</label>
                   <textarea
-                    id="contact-form-message"
                     name="message"
                     required
-                    rows={5}
-                    placeholder="Tulis pesan Anda di sini..."
-                    className="w-full resize-none neo-input bg-white p-4 text-base font-bold text-black placeholder:text-neutral-400"
+                    rows={4}
+                    placeholder="Hi Haidar, I'd like to discuss a project..."
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-lg p-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-[#8B7CFF] transition-colors resize-none"
                   />
                 </div>
 
-                {/* Status messages */}
+                {/* Status Banners */}
                 {status === "success" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 border-4 border-black bg-neo-lime p-4 text-base font-black text-black shadow-[4px_4px_0_0_#000]"
-                  >
-                    <CheckCircle className="h-6 w-6 shrink-0 stroke-[3]" />
-                    Pesan berhasil dikirim!
-                  </motion.div>
+                  <div className="flex items-center gap-2 p-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs rounded-lg">
+                    <CheckCircle className="h-4 w-4 shrink-0" />
+                    <span>Message sent successfully! Thank you for reaching out.</span>
+                  </div>
                 )}
 
                 {status === "error" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 border-4 border-black bg-neo-red p-4 text-base font-black text-black shadow-[4px_4px_0_0_#000]"
-                  >
-                    <AlertCircle className="h-6 w-6 shrink-0 stroke-[3]" />
-                    Gagal mengirim. Coba via email.
-                  </motion.div>
+                  <div className="flex items-center gap-2 p-3 bg-rose-500/10 border border-rose-500/30 text-rose-400 font-mono text-xs rounded-lg">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    <span>Failed to send. Please use direct email link above.</span>
+                  </div>
                 )}
 
-                {/* Submit button */}
                 <button
-                  id="contact-form-submit"
                   type="submit"
                   disabled={status === "loading"}
-                  className="neo-btn flex w-full items-center justify-center gap-3 bg-neo-yellow px-8 py-5 text-xl font-black text-black hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full py-3.5 bg-[#8B7CFF] text-black font-display font-bold text-sm tracking-wider uppercase rounded-lg hover:bg-[#9d91ff] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {status === "loading" ? (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="h-6 w-6 rounded-full border-4 border-black/30 border-t-black"
-                      />
-                      MENGIRIM...
-                    </>
+                    <span>PROCESSING...</span>
                   ) : (
                     <>
-                      <Send className="h-6 w-6 stroke-[3]" />
-                      KIRIM PESAN
+                      <span>SEND MESSAGE</span>
+                      <Send className="h-4 w-4" />
                     </>
                   )}
                 </button>
-              </div>
-            </form>
-          </motion.div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </section>

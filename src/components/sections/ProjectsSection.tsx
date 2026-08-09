@@ -1,194 +1,316 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, Code2 } from "lucide-react";
-import { projects } from "@/data/portfolio";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { projects, additionalProjects } from "@/data/portfolio";
 import { Project } from "@/data/types";
-import { cn } from "@/lib/utils";
+import { ProjectModal } from "@/components/ui/project-modal";
 
-type FilterCategory = "All" | "Web" | "Mobile" | "AI" | "IoT";
+// Interactive Wavy Dot Grid Canvas Background following mouse cursor
+function InteractiveProjectBackground() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-const filters: FilterCategory[] = ["All", "Web", "Mobile", "AI", "IoT"];
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-const projectColors = [
-  "bg-neo-yellow",
-  "bg-neo-cyan",
-  "bg-neo-pink",
-  "bg-neo-lime",
-  "bg-neo-orange",
-];
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
+    let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  const headerColor = projectColors[index % projectColors.length];
+    const handleResize = () => {
+      if (!canvas || !canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.clientWidth;
+      height = canvas.height = canvas.parentElement.clientHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.targetX = -1000;
+      mouse.targetY = -1000;
+    };
+
+    const parent = canvas.parentElement;
+    if (parent) {
+      parent.addEventListener("mousemove", handleMouseMove);
+      parent.addEventListener("mouseleave", handleMouseLeave);
+    }
+
+    const spacing = 28; // Spacing between dots
+    let time = 0;
+
+    const render = () => {
+      time += 0.02;
+      mouse.x += (mouse.targetX - mouse.x) * 0.1;
+      mouse.y += (mouse.targetY - mouse.y) * 0.1;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const cols = Math.ceil(width / spacing);
+      const rows = Math.ceil(height / spacing);
+
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const baseX = i * spacing + 14;
+          const baseY = j * spacing + 14;
+
+          // Wavy motion formula
+          const wave = Math.sin(time + i * 0.15 + j * 0.15) * 3;
+          let dotX = baseX;
+          let dotY = baseY + wave;
+
+          // Mouse interaction radius
+          const dx = dotX - mouse.x;
+          const dy = dotY - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxDist = 160;
+
+          let radius = 1.2;
+          let alpha = 0.12;
+
+          if (dist < maxDist) {
+            const factor = 1 - dist / maxDist;
+            const force = factor * factor * 14; // Push dots away smoothly
+            const angle = Math.atan2(dy, dx);
+            dotX += Math.cos(angle) * force;
+            dotY += Math.sin(angle) * force;
+
+            radius = 1.2 + factor * 2.2; // Dot grows on hover
+            alpha = 0.12 + factor * 0.55; // Glows brighter on hover
+          }
+
+          ctx.beginPath();
+          ctx.arc(dotX, dotY, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(139, 124, 255, ${alpha})`; // Subtle purple glow
+          ctx.fill();
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (parent) {
+        parent.removeEventListener("mousemove", handleMouseMove);
+        parent.removeEventListener("mouseleave", handleMouseLeave);
+      }
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: (index % 3) * 0.1, type: "spring", stiffness: 200 }}
-      className="group h-full flex"
-    >
-      <div className="neo-card bg-white flex flex-col w-full overflow-hidden hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#000] transition-all duration-300">
-        
-        {/* Header Strip with Icon placeholder */}
-        <div className={cn("h-48 w-full border-b-4 border-black p-6 flex flex-col justify-between", headerColor)}>
-          <div className="flex justify-between items-start">
-            <div className="bg-white neo-border p-2 shadow-[2px_2px_0_0_#000]">
-              <Code2 className="h-6 w-6 stroke-[3]" />
-            </div>
-            {/* Category badges */}
-            <div className="flex flex-wrap gap-2 justify-end">
-              {project.category.map((cat) => (
-                <span
-                  key={cat}
-                  className="bg-black text-white neo-border px-3 py-1 text-xs font-black uppercase tracking-widest shadow-[2px_2px_0_0_#fff]"
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-          </div>
-          <h3 className="text-2xl font-black text-black bg-white inline-block px-3 py-1 neo-border self-start shadow-[3px_3px_0_0_#000] mt-auto">
-            {project.title}
-          </h3>
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-1 flex-col p-6 lg:p-8">
-          <p className="text-sm font-bold text-neutral-500 mb-4 uppercase tracking-widest border-b-2 border-black/10 pb-2">
-            {project.subtitle}
-          </p>
-
-          <p className="mb-6 text-base font-semibold text-black leading-relaxed flex-1">
-            {project.description}
-          </p>
-
-          {/* Impact bullets */}
-          <ul className="mb-8 space-y-2">
-            {project.impact.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm font-bold text-black">
-                <span className="mt-1.5 h-2 w-2 shrink-0 bg-neo-cyan border border-black shadow-[1px_1px_0_0_#000]" />
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          {/* Tech stack */}
-          <div className="mb-8 flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="bg-neutral-100 border-2 border-black px-3 py-1 text-xs font-bold text-black shadow-[2px_2px_0_0_#000]"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          {/* Live link */}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            id={`project-link-${project.id}`}
-            className="mt-auto flex items-center justify-center gap-2 w-full bg-neo-yellow py-4 text-base font-black uppercase neo-btn text-black hover:bg-white"
-          >
-            <ExternalLink className="h-5 w-5 stroke-[3]" />
-            Live Demo
-          </a>
-        </div>
-      </div>
-    </motion.div>
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-70"
+    />
   );
 }
 
-export function ProjectsSection() {
-  const [activeFilter, setActiveFilter] = useState<FilterCategory>("All");
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+// Combine projects into unified dataset
+const ALL_PROJECTS: Project[] = [
+  ...projects,
+  ...additionalProjects.map((p, idx) => ({
+    id: p.id,
+    number: `0${projects.length + idx + 1}`,
+    title: p.title,
+    subtitle: p.subtitle,
+    year: "2024",
+    category: p.category,
+    description: p.description,
+    technologies: p.technologies,
+    featured: false,
+    liveUrl: p.liveUrl,
+    caseStudy: {
+      context: p.description,
+      problem: "Hardware telemetry and real-time monitoring challenge.",
+      approach: "Built hardware sensor pipeline with microcontrollers and live web dashboard.",
+      contribution: ["Configured hardware sensors and microcontrollers.", "Engineered data payload telemetry."],
+      implementation: `Built with ${p.technologies.join(", ")}.`,
+      result: ["Functional prototype successfully tested."],
+    },
+  })),
+];
 
-  const filtered =
-    activeFilter === "All"
-      ? projects
-      : projects.filter((p) => p.category.includes(activeFilter));
+const FILTERS = [
+  { id: "all", label: "ALL" },
+  { id: "web", label: "WEB & ENTERPRISE" },
+  { id: "ai", label: "AI & MACHINE LEARNING" },
+  { id: "iot", label: "IOT & HARDWARE" },
+];
+
+export function ProjectsSection() {
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const filteredProjects = ALL_PROJECTS.filter((p) => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "web")
+      return (
+        p.category.toLowerCase().includes("web") ||
+        p.category.toLowerCase().includes("enterprise") ||
+        p.category.toLowerCase().includes("commercial") ||
+        p.category.toLowerCase().includes("tourism")
+      );
+    if (activeFilter === "ai")
+      return (
+        p.category.toLowerCase().includes("machine learning") ||
+        p.category.toLowerCase().includes("ai")
+      );
+    if (activeFilter === "iot")
+      return (
+        p.category.toLowerCase().includes("iot") ||
+        p.category.toLowerCase().includes("hardware")
+      );
+    return true;
+  });
 
   return (
-    <section
-      id="projects"
-      className="relative bg-neo-blue py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b-4 border-black"
-    >
-      {/* Background pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 2px, transparent 10px)`,
-          opacity: 0.05
-        }}
-      />
+    <section id="projects" className="relative bg-[#0A0A0A] py-24 px-6 sm:px-10 lg:px-16 xl:px-20 overflow-hidden">
+      {/* Interactive Wavy Dot Grid Canvas Background */}
+      <InteractiveProjectBackground />
 
-      <div className="mx-auto max-w-6xl relative z-10">
-        {/* Header */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
-        >
-          <div className="inline-block bg-white px-4 sm:px-6 py-3 border-4 border-black shadow-[6px_6px_0_0_#000] mb-6">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black uppercase">
-              Featured Projects
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Section Heading */}
+        <div className="mb-12 border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="font-mono text-xs font-semibold text-[#8B7CFF] uppercase tracking-wider block mb-2">
+              03 / SELECTED WORK
+            </span>
+            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight uppercase">
+              SELECTED WORK.
             </h2>
           </div>
-        </motion.div>
+          <p className="text-[#8A8A8A] text-sm max-w-md font-sans leading-relaxed">
+            Featured case studies demonstrating system architecture, fullstack development, AI products, and business web solutions.
+          </p>
+        </div>
 
-        {/* Filter tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-12 flex flex-wrap items-center justify-center gap-3 md:gap-4"
-          role="tablist"
-        >
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              role="tab"
-              aria-selected={activeFilter === filter}
-              id={`filter-${filter.toLowerCase()}`}
-              onClick={() => setActiveFilter(filter)}
-              className={cn(
-                "px-6 py-3 text-sm md:text-base font-black uppercase neo-btn transition-all duration-200",
-                activeFilter === filter
-                  ? "bg-black text-white shadow-[4px_4px_0_0_#fff] translate-x-[-2px] translate-y-[-2px]"
-                  : "bg-white text-black hover:bg-neo-yellow"
-              )}
-            >
-              {filter}
-            </button>
-          ))}
-        </motion.div>
+        {/* Category Filter Bar */}
+        <div className="mb-12 flex flex-wrap items-center gap-3 border-b border-white/10 pb-6">
+          {FILTERS.map((filter) => {
+            const isActive = activeFilter === filter.id;
+            return (
+              <button
+                key={filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`font-mono text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-full transition-all ${
+                  isActive
+                    ? "bg-[#8B7CFF] text-black shadow-lg shadow-[#8B7CFF]/20"
+                    : "bg-white/[0.03] text-[#8A8A8A] border border-white/10 hover:border-white/20 hover:text-white"
+                }`}
+              >
+                {filter.label}
+              </button>
+            );
+          })}
+        </div>
 
-        {/* Project grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
-          >
-            {filtered.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
+        {/* Equal Box Grid ("kotak-kotak clean") */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
+              <motion.div
+                layout
+                key={project.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelectedProject(project)}
+                className="group cursor-pointer editorial-card p-6 flex flex-col justify-between border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-sm hover:border-[#8B7CFF] rounded-2xl transition-all duration-300 overflow-hidden"
+              >
+                <div>
+                  {/* Card Top Banner / Visual Thumbnail */}
+                  <div className="relative mb-6 h-48 w-full rounded-xl border border-white/10 bg-gradient-to-br from-[#171717] via-[#0A0A0A] to-[#121020] p-6 flex flex-col justify-between overflow-hidden group-hover:border-[#8B7CFF]/40 transition-colors">
+                    {/* Top Badges */}
+                    <div className="flex items-center justify-between font-mono text-xs z-10">
+                      <span className="bg-white/10 text-white font-bold px-2.5 py-1 rounded">
+                        {project.number}
+                      </span>
+                      <span className="bg-[#8B7CFF]/15 text-[#8B7CFF] font-bold px-2.5 py-1 rounded border border-[#8B7CFF]/30 uppercase text-[10px]">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    {/* Centered Large Project Title Visual */}
+                    <div className="z-10 text-center my-auto">
+                      <h3 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight group-hover:text-[#8B7CFF] transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wider mt-1">
+                        {project.category}
+                      </p>
+                    </div>
+
+                    {/* Subtle grid background inside thumb */}
+                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+                  </div>
+
+                  {/* Project Info */}
+                  <h4 className="font-display font-bold text-xl text-[#8B7CFF] transition-colors mb-2">
+                    {project.title} — <span className="text-white font-normal">{project.subtitle}</span>
+                  </h4>
+                  <p className="font-sans text-sm text-[#8A8A8A] leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div>
+                  {/* Tech Stack Pills */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.technologies.map((tech) => (
+                      <span key={tech} className="tech-tag text-[11px] px-2.5 py-1 bg-white/5 border border-white/10 rounded-md text-white/80">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Card Footer Actions */}
+                  <div className="flex items-center justify-between border-t border-white/10 pt-4 font-mono text-xs text-[#8A8A8A]">
+                    <span className="text-white font-bold group-hover:text-[#8B7CFF] inline-flex items-center gap-1.5 transition-colors">
+                      CASE STUDY <ArrowUpRight className="h-4 w-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </span>
+
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-[#8B7CFF] hover:underline inline-flex items-center gap-1"
+                      >
+                        <span>LIVE DEMO</span>
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
             ))}
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </motion.div>
       </div>
+
+      {/* Case Study Detail Modal Overlay */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }

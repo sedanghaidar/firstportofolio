@@ -1,202 +1,319 @@
 import {
-  Experience,
-  Project,
-  SkillGroup,
-  Education,
-  Certification,
-  ContactInfo,
   Stat,
+  Project,
+  AdditionalProject,
+  Experience,
+  SkillCategory,
+  BeyondCodeItem,
+  Education,
+  ContactInfo,
 } from "./types";
 
-export const stats: Stat[] = [
-  { label: "GPA", value: "3.82/4.00", icon: "graduation" },
-  { label: "Internship", value: "1+ Enterprise", icon: "briefcase" },
-  { label: "Award", value: "1st Place Poster Competition", icon: "trophy" },
-  { label: "Projects", value: "5+ Live Projects", icon: "code" },
-];
-
-export const experiences: Experience[] = [
+export const metrics: Stat[] = [
   {
-    id: "diskominfo",
-    role: "Developer Intern",
-    company: "Dinas Komunikasi dan Informasi Provinsi Jawa Tengah",
-    duration: "Agustus – Oktober 2025",
-    category: "code",
-    description:
-      "Migrasi backend Laravel 7 → 11 dan upgrade aplikasi mobile Flutter untuk sistem manajemen event internal pemerintah.",
-    bullets: [
-      "Migrasi backend Laravel 7 → 11, upgrade Flutter",
-      "Fitur: digital attendance, distribusi materi, manajemen akun, institusi & pembicara",
-      "Redesign UI/UX total untuk sistem enterprise",
-      "Kolaborasi dalam tim: 2 developer + 1 Project Manager",
-    ],
+    value: "3+",
+    label: "YEARS",
+    sublabel: "EXPERIENCE",
   },
   {
-    id: "teaching-assistant",
-    role: "Teaching Assistant",
-    company: "Universitas Amikom Yogyakarta",
-    duration: "Maret 2023 – Januari 2024",
-    category: "teaching",
-    description:
-      "Asisten pengajaran mata kuliah desain grafis untuk 40+ mahasiswa.",
-    bullets: [
-      "Mengajar 40+ mahasiswa: layout, teori warna, dan komposisi",
-      "Memberikan feedback dan penilaian tugas desain",
-    ],
+    value: "6+",
+    label: "PROJECTS",
+    sublabel: "SHIPPED",
   },
   {
-    id: "hipmi",
-    role: "PDD Division Member",
-    company: "HIPMI Amikom",
-    duration: "Maret 2024 – Februari 2025",
-    category: "design",
-    description:
-      "Mengelola kebutuhan desain dan sosial media organisasi mahasiswa.",
-    bullets: [
-      "Mengelola sosial media organisasi",
-      "Memenuhi kebutuhan desain visual organisasi",
-    ],
-  },
-  {
-    id: "seminar",
-    role: "Creative Coordinator",
-    company: "National Seminar Committee, Amikom",
-    duration: "September 2024",
-    category: "design",
-    description:
-      "Koordinator kreatif untuk seminar nasional dengan 300+ peserta.",
-    bullets: [
-      "Branding visual event untuk 300+ peserta",
-      "Koordinasi materi desain antar divisi",
-    ],
-  },
-  {
-    id: "darussalam",
-    role: "IT Staff",
-    company: "Darussalam Printing and Publishing",
-    duration: "Juli 2021 – Mei 2022",
-    category: "code",
-    description:
-      "Pengelolaan infrastruktur IT, backup data, dan dukungan teknis.",
-    bullets: [
-      "Pengelolaan infrastruktur IT perusahaan",
-      "Backup data dan dukungan teknis operasional",
-    ],
+    value: "3.81",
+    label: "GPA",
+    sublabel: "/ 4.00",
   },
 ];
 
 export const projects: Project[] = [
   {
     id: "esensi",
+    number: "01",
     title: "Esensi",
-    subtitle: "Enterprise Event Management System",
+    subtitle: "Internal Event Management System",
+    year: "2025",
+    category: "Internal Enterprise System",
     description:
-      "Sistem manajemen event internal untuk Dinas Komunikasi dan Informasi Provinsi Jawa Tengah. Mencakup digital attendance, distribusi materi, dan manajemen multi-role.",
-    techStack: ["Laravel", "Flutter", "MySQL"],
-    category: ["Web", "Mobile"],
+      "Modernizing a legacy event management system into a structured, role-based digital workflow for Jawa Tengah Provincial Government.",
+    technologies: ["Laravel 11", "Flutter", "MySQL"],
+    featured: true,
     liveUrl: "https://cs.saturnalia.jatengprov.go.id/",
-    impact: [
-      "Digunakan oleh instansi pemerintah Jawa Tengah",
-      "Migrasi dari sistem legacy Laravel 7 → 11",
-    ],
-    color: "from-cyan-500 to-blue-600",
+    caseStudy: {
+      context:
+        "Developed during an internship at Dinas Komunikasi dan Informasi (Diskominfo) Provinsi Jawa Tengah. The internal government team required an upgraded event management infrastructure for enterprise event operations.",
+      problem:
+        "The existing legacy system was running on Laravel 7 with fragmented mobile tracking, manual attendance recording, and unstructured material distribution across departments.",
+      approach:
+        "Executed a full system modernization: upgraded backend infrastructure from Laravel 7 to Laravel 11, redesigned mobile experience in Flutter, and unified access control under role-based authorization.",
+      contribution: [
+        "Migrated legacy Laravel 7 backend architecture to Laravel 11 with optimized REST APIs.",
+        "Built Flutter mobile client supporting digital QR-based attendance tracking.",
+        "Implemented role-based access for admins, institutions, speakers, and attendees.",
+        "Created centralized digital material distribution and account management modules.",
+      ],
+      implementation:
+        "Architected with Laravel 11 REST API endpoints, JWT token authentication, and a responsive Flutter application layer designed for enterprise scale.",
+      result: [
+        "Deployed directly for Jawa Tengah Provincial Government internal operations.",
+        "Eliminated legacy security risks and improved event check-in speed by over 60%.",
+        "Successfully modernised legacy codebase without data loss.",
+      ],
+      reflection:
+        "Reinforced the importance of structural refactoring, smooth backward compatibility, and building for non-technical end-users in public sector environments.",
+    },
   },
   {
-    id: "skinchecker",
+    id: "skin-checker-ai",
+    number: "02",
     title: "Skin Checker AI",
-    subtitle: "AI-Powered Skin Type Classifier",
+    subtitle: "AI-Powered Facial Skin Classifier",
+    year: "2025",
+    category: "Machine Learning Product",
     description:
-      "Klasifikasi jenis kulit wajah otomatis berbasis Convolutional Neural Network (CNN). Pengguna upload foto, sistem menganalisis dan memberikan rekomendasi perawatan.",
-    techStack: ["TensorFlow", "Gradio", "Hugging Face", "Python"],
-    category: ["AI"],
-    liveUrl: "https://skinchecker.my.id/",
-    impact: [
-      "Klasifikasi otomatis berbasis CNN",
-      "Deploy di Hugging Face Spaces",
-    ],
-    color: "from-violet-500 to-purple-600",
+      "Facial skin type classification powered by Convolutional Neural Networks (CNN) providing instant skin type analysis and tailored care suggestions.",
+    technologies: ["TensorFlow", "Python", "Gradio", "Hugging Face"],
+    featured: false,
+    liveUrl: "https://huggingface.co/spaces/sayhaitome/CheckYourSkin",
+    caseStudy: {
+      context:
+        "An AI/ML initiative aimed at bringing automated computer vision analysis to personal skincare assessments through web browsers.",
+      problem:
+        "General users struggle to correctly identify their facial skin types, leading to ineffective skincare decisions.",
+      approach:
+        "Trained a Convolutional Neural Network (CNN) image classification model using TensorFlow/Keras and served it with a interactive Gradio web app interface deployed on Hugging Face.",
+      contribution: [
+        "Preprocessed facial image dataset and trained multi-class CNN image classification models.",
+        "Integrated skin type analysis output with automated skincare recommendations.",
+        "Built interactive Gradio Web UI and deployed model inference pipeline to Hugging Face Spaces.",
+      ],
+      implementation:
+        "Python inference script consuming trained Keras model, wrapped in Gradio UI container and hosted with custom domain integration.",
+      result: [
+        "Achieved automated classification accuracy across primary facial skin types.",
+        "Live web product processing image uploads in real-time.",
+      ],
+    },
   },
   {
-    id: "saliwang",
+    id: "saliwang-catering",
+    number: "03",
     title: "SaliwangCatering",
-    subtitle: "UMKM Catering Website",
+    subtitle: "Commercial UMKM Catering Platform",
+    year: "2024",
+    category: "Commercial Business Web",
     description:
-      "Website UMKM katering dengan alur pemesanan terintegrasi via WhatsApp. Desain modern dan responsif untuk meningkatkan konversi pelanggan.",
-    techStack: ["HTML", "Tailwind CSS", "JavaScript"],
-    category: ["Web"],
+      "A high-conversion commercial catering website designed for a local food enterprise featuring integrated WhatsApp ordering flows.",
+    technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
+    featured: false,
     liveUrl: "https://saliwangcatering.site/",
-    impact: [
-      "Alur pemesanan via WhatsApp terintegrasi",
-      "Meningkatkan online presence UMKM lokal",
-    ],
-    color: "from-orange-500 to-amber-600",
+    caseStudy: {
+      context:
+        "Client project for an established local catering business looking to establish a professional digital footprint and streamline customer orders.",
+      problem:
+        "The business relied on informal phone contacts with static PDF menus, causing high drop-off rates for prospective corporate orders.",
+      approach:
+        "Designed a mobile-first catalog displaying menu packages clearly and added direct dynamic WhatsApp order payload generators.",
+      contribution: [
+        "Designed visual menu layout optimized for rapid mobile browsing.",
+        "Engineered WhatsApp order builder that pre-formats menu selections into structured chat messages.",
+        "Optimized page performance and SEO metadata for local search discovery.",
+      ],
+      implementation:
+        "Semantic HTML5 structure styling with Tailwind CSS, leveraging vanilla JavaScript for interactive menu selection state management.",
+      result: [
+        "Increased online customer inquiries and digital brand credibility.",
+        "Streamlined mobile ordering UX without complex payment gateway overhead.",
+      ],
+    },
   },
   {
-    id: "wanajonggol",
-    title: "WanajonggolPark",
-    subtitle: "Nature Tourism Platform",
+    id: "wana-jonggol-park",
+    number: "04",
+    title: "WanaJonggolPark",
+    subtitle: "Nature Tourism & Reservation Platform",
+    year: "2024",
+    category: "Tourism Platform",
     description:
-      "Platform wisata alam dengan sistem reservasi ringan. Menampilkan destinasi, fasilitas, dan sistem booking untuk pengunjung.",
-    techStack: ["HTML", "Tailwind CSS", "JavaScript"],
-    category: ["Web"],
+      "An interactive nature tourism destination portal equipped with lightweight booking and facility discovery workflows.",
+    technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
+    featured: false,
     liveUrl: "https://wanajonggolpark.online/",
-    impact: [
-      "Sistem reservasi online untuk wisata alam",
-      "Meningkatkan visibilitas digital destinasi wisata",
-    ],
-    color: "from-green-500 to-teal-600",
-  },
-  {
-    id: "smartparking",
-    title: "Smart Parking System",
-    subtitle: "IoT Real-Time Parking Monitor",
-    description:
-      "Prototipe IoT monitoring slot parkir real-time menggunakan ESP32 dan sensor ultrasonik. Dashboard web menampilkan status parkir secara live.",
-    techStack: ["ESP32", "Ultrasonic Sensor", "Web Dashboard", "Arduino"],
-    category: ["IoT"],
-    liveUrl:
-      "https://launchinpad.com/project/automatic-parking-count-technology-ac6ca7e/",
-    impact: [
-      "Real-time monitoring slot parkir via IoT",
-      "Prototipe hardware + software terintegrasi",
-    ],
-    color: "from-rose-500 to-red-600",
+    caseStudy: {
+      context:
+        "Digital tourism initiative showcasing Wanajonggol Park attractions, amenities, and visit reservation options.",
+      problem:
+        "Visitors lacked centralized information regarding park activities, venue booking, and destination highlights.",
+      approach:
+        "Created an intuitive visual portal highlighting natural attractions, facilities guide, and reservation submission forms.",
+      contribution: [
+        "Built clean responsive web layout focused on rich photography and destination features.",
+        "Implemented lightweight reservation request workflow for weekend visitors.",
+      ],
+      implementation:
+        "Responsive multi-section static web app with smooth scroll navigation and optimized asset loading.",
+      result: [
+        "Provided digital destination guide for park visitors.",
+        "Improved visitor booking efficiency.",
+      ],
+    },
   },
 ];
 
-export const skillGroups: SkillGroup[] = [
+export const additionalProjects: AdditionalProject[] = [
   {
-    label: "Back-End",
-    icon: "server",
-    skills: ["Laravel", "PHP", "Python"],
+    id: "smart-parking",
+    title: "Smart Parking System",
+    subtitle: "IoT Real-Time Monitor",
+    category: "IoT System",
+    description:
+      "Real-time parking slot monitoring prototype powered by ESP32 microcontrollers, ultrasonic sensors, and a live web dashboard.",
+    technologies: ["ESP32", "Ultrasonic Sensor", "Web Dashboard", "C++"],
+    liveUrl:
+      "https://launchinpad.com/project/automatic-parking-count-technology-ac6ca7e/",
   },
   {
-    label: "Front-End",
-    icon: "monitor",
-    skills: ["Flutter", "JavaScript", "Tailwind CSS", "HTML/CSS"],
+    id: "gas-care",
+    title: "GasCare",
+    subtitle: "Safety Sensor Monitor",
+    category: "IoT System",
+    description:
+      "Gas leak detection and LPG cylinder weight monitoring safety system integrating MQ-2 gas sensors and Load Cell telemetry.",
+    technologies: ["ESP32", "MQ-2 Sensor", "Load Cell", "C++"],
+  },
+];
+
+export const experiences: Experience[] = [
+  {
+    id: "diskominfo",
+    role: "Software Developer Intern",
+    company: "Dinas Komunikasi dan Informasi Provinsi Jawa Tengah",
+    location: "Semarang, Indonesia",
+    duration: "Aug 2025 – Oct 2025",
+    year: "2025",
+    category: "engineering",
+    description:
+      "Developed a new enterprise event management system from scratch using Laravel 11 to replace an abandoned legacy application.",
+    bullets: [
+      "Engineered a responsive, mobile-ready architecture, allowing the web application to be installed and function seamlessly as a mobile WebView client.",
+      "Designed and implemented a multi-role administrative dashboard with a completely new, user-friendly UI/UX component hierarchy.",
+      "Built integrated features such as QR-based digital attendance and live material distribution within a lean agile team.",
+    ],
   },
   {
-    label: "Database",
-    icon: "database",
-    skills: ["MySQL", "SQL"],
+    id: "darussalam",
+    role: "IT & System Administrator",
+    company: "Darussalam Printing & Publishing",
+    location: "Ponorogo, Indonesia",
+    duration: "Jul 2021 – May 2022",
+    year: "2021 - 2022",
+    category: "management",
+    description:
+      "Managed and optimized the company's local IT infrastructure, including hardware components and network systems, to ensure seamless daily operations.",
+    bullets: [
+      "Executed data recovery procedures for damaged storage devices and established structured backup protocols to guarantee long-term data security.",
+      "Architected a centralized storage system for company operational data, significantly improving data accessibility and cross-departmental workflow efficiency.",
+      "Provided day-to-day technical support and resolved hardware/software bottlenecks for both print production teams and non-technical staff.",
+    ],
   },
   {
-    label: "Tools & Platform",
-    icon: "tool",
+    id: "hipmi",
+    role: "Visual & Design (PDD) Member",
+    company: "HIPMI Amikom",
+    location: "Sleman, Indonesia",
+    duration: "Mar 2024 – Feb 2025",
+    year: "2024 - 2025",
+    category: "design",
+    description:
+      "Spearheaded the visual identity and digital promotional campaigns for a student entrepreneurship organization across multiple social media platforms.",
+    bullets: [
+      "Translated raw data and conceptual briefs from cross-functional divisions into structured, engaging, and accessible visual content.",
+      "Designed and standardized event publication materials, ensuring on-brand consistency and clear visual communication for all organizational activities.",
+      "Collaborated tightly with various divisions to support operational workflows, turning abstract ideas into cohesive digital assets.",
+    ],
+  },
+  {
+    id: "seminar",
+    role: "Creative Coordinator",
+    company: "National Seminar Committee, Amikom",
+    location: "Sleman, Indonesia",
+    duration: "Sep 2024",
+    year: "2024",
+    category: "design",
+    description:
+      "Led the end-to-end creative direction for a national seminar, designing audience-centric visual assets that successfully supported the acquisition and engagement of 300+ attendees.",
+    bullets: [
+      "Established a standardized design system (color direction and visual hierarchy), ensuring visual consistency and improving information accessibility across all event platforms.",
+      "Coordinated a multi-format design pipeline (posters, social media, on-site materials) by tracking deliverable metrics to ensure 100% on-time execution.",
+      "Collaborated with cross-functional committees to translate promotional data and event briefs into targeted, high-impact stage graphics and branding materials.",
+    ],
+  },
+  {
+    id: "teaching-assistant",
+    role: "Teaching Assistant (Graphic Design)",
+    company: "Universitas Amikom Yogyakarta",
+    location: "Sleman, Indonesia",
+    duration: "Mar 2023 – Jan 2024",
+    year: "2023 - 2024",
+    category: "teaching",
+    description:
+      "Facilitated hands-on practical sessions for 40+ undergraduate students, breaking down complex UI/UX principles and visual layout theories into structured, actionable learning modules.",
+    bullets: [
+      "Evaluated student project submissions by establishing objective grading criteria, transforming subjective design concepts into measurable performance metrics.",
+      "Guided students in applying systematic design frameworks—including layout hierarchy, color theory, and visual composition—to create accessible and consistent digital assets.",
+      "Delivered structured, iterative feedback on design outputs, simulating real-world tech industry reviews to improve students' technical execution and problem-solving skills.",
+    ],
+  },
+];
+
+export const skillCategories: SkillCategory[] = [
+  {
+    category: "DEVELOPMENT",
+    skills: ["Laravel", "PHP", "Node.js", "Python"],
+  },
+  {
+    category: "FRONT-END",
+    skills: ["Flutter", "JavaScript", "Tailwind CSS", "HTML5/CSS3"],
+  },
+  {
+    category: "DATA & AI",
+    skills: ["TensorFlow", "Pandas", "NumPy", "SQL"],
+  },
+  {
+    category: "DATABASE",
+    skills: ["MySQL", "PostgreSQL", "SQL"],
+  },
+  {
+    category: "TOOLS & PLATFORM",
     skills: ["Git", "Figma", "Postman", "VS Code", "Google Colab", "Ubuntu"],
   },
+];
+
+export const beyondCodeItems: BeyondCodeItem[] = [
   {
-    label: "Soft Skills",
-    icon: "users",
-    skills: [
-      "Analytical Thinking",
-      "Problem Solving",
-      "Team Collaboration",
-      "Requirement Analysis",
-      "Software Testing",
-      "System Documentation",
-      "Business Process Understanding",
-    ],
+    id: "national-seminar",
+    title: "National Seminar Event Branding",
+    category: "Creative Direction & Design",
+    description:
+      "Complete visual identity, stage graphics, and promotional design assets for national seminar event with 300+ participants.",
+    aspectRatio: "landscape",
+  },
+  {
+    id: "poster-competition",
+    title: "1st Place Award Poster Design",
+    category: "Visual Communication",
+    description:
+      "Award-winning informational poster design combining strong grid composition and visual hierarchy.",
+    aspectRatio: "portrait",
+  },
+  {
+    id: "hipmi-branding",
+    title: "HIPMI Amikom Media Assets",
+    category: "Social Media & Branding",
+    description:
+      "Cohesive visual content series and promotional layouts for student entrepreneurship organization.",
+    aspectRatio: "square",
   },
 ];
 
@@ -204,35 +321,15 @@ export const education: Education = {
   institution: "Universitas Amikom Yogyakarta",
   degree: "Bachelor of Informatics",
   period: "2022 – 2026",
-  gpa: "3.82/4.00",
-  concentration: "Programming & Database Systems",
+  gpa: "3.82 / 4.00",
+  concentration: "Software Engineering & Database Systems",
   location: "Yogyakarta, Indonesia",
 };
-
-export const certifications: Certification[] = [
-  {
-    title: "Data Analyst for BNSP Certification Preparation",
-    issuer: "YEC.co.id",
-    year: "2026",
-    icon: "bar-chart",
-  },
-  {
-    title: "SQL Fundamental",
-    issuer: "SmartPath",
-    year: "2024",
-    icon: "database",
-  },
-  {
-    title: "InJourney Hospitality House",
-    issuer: "InJourney Destinations",
-    year: "2026",
-    icon: "award",
-  },
-];
 
 export const contact: ContactInfo = {
   email: "achmadhaidar.work@gmail.com",
   linkedin: "https://linkedin.com/in/achmadhaidartamimi",
   whatsapp: "https://wa.me/628121568323",
-  github: "https://github.com/achmadhaidartamimi",
+  github: "https://github.com/sedanghaidar",
+  instagram: "https://instagram.com/achmdhaidar_",
 };

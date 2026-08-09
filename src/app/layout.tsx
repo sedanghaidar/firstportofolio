@@ -1,41 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, Space_Grotesk } from "next/font/google";
+import { Raleway } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
+const raleway = Raleway({
   subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-raleway",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Achmad Haidar Tamimi — Software Developer Portfolio",
+  title: "Achmad Haidar Tamimi — Software Developer",
   description:
-    "Fresh graduate Informatika Universitas Amikom Yogyakarta (GPA 3.82) yang berpengalaman membangun aplikasi web dan mobile enterprise menggunakan Laravel & Flutter. Tersedia untuk peluang full-time maupun freelance.",
+    "Software Developer who builds digital systems and understands design, data, users, and business workflows. Building systems. Designing experiences.",
   keywords: [
     "Achmad Haidar Tamimi",
     "Software Developer",
+    "Data Analyst",
+    "Fullstack Developer",
     "Laravel Developer",
     "Flutter Developer",
     "Portfolio",
     "Informatika Amikom",
-    "Web Developer Indonesia",
+    "Yogyakarta",
   ],
   authors: [{ name: "Achmad Haidar Tamimi" }],
   creator: "Achmad Haidar Tamimi",
   openGraph: {
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
     url: "https://achmadhaidar.dev",
     title: "Achmad Haidar Tamimi — Software Developer Portfolio",
     description:
-      "Fresh graduate Informatika yang berpengalaman membangun aplikasi enterprise dengan Laravel & Flutter.",
+      "Building systems. Designing experiences. Portfolio of Achmad Haidar Tamimi.",
     siteName: "Achmad Haidar Tamimi Portfolio",
     images: [
       {
@@ -50,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Achmad Haidar Tamimi — Software Developer Portfolio",
     description:
-      "Fresh graduate Informatika yang berpengalaman membangun aplikasi enterprise dengan Laravel & Flutter.",
+      "Building systems. Designing experiences. Portfolio of Achmad Haidar Tamimi.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -60,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#020817",
+  themeColor: "#0A0A0A",
   width: "device-width",
   initialScale: 1,
 };
@@ -72,10 +68,10 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="id"
-      className={`${outfit.variable} ${spaceGrotesk.variable} scroll-smooth`}
+      lang="en"
+      className={`${raleway.variable} scroll-smooth dark`}
     >
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="min-h-screen bg-[#0A0A0A] text-[#F5F5F5] font-sans antialiased selection:bg-[#8B7CFF] selection:text-black">
         {children}
       </body>
     </html>

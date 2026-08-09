@@ -1,35 +1,72 @@
 export interface Stat {
   label: string;
+  sublabel?: string;
   value: string;
-  icon: "graduation" | "briefcase" | "trophy" | "code";
+  icon?: string;
+}
+
+export interface CaseStudy {
+  context: string;
+  problem: string;
+  approach: string;
+  contribution: string[];
+  implementation: string;
+  result: string[];
+  reflection?: string;
+}
+
+export interface Project {
+  id: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  year: string;
+  category: string;
+  description: string;
+  technologies: string[];
+  featured: boolean;
+  image?: string;
+  liveUrl?: string;
+  githubUrl?: string;
+  figmaUrl?: string;
+  caseStudy?: CaseStudy;
+}
+
+export interface AdditionalProject {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  description: string;
+  technologies: string[];
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 export interface Experience {
   id: string;
   role: string;
   company: string;
+  location?: string;
   duration: string;
-  category: "code" | "teaching" | "design";
+  year: string;
+  category: "engineering" | "management" | "teaching" | "design";
   description: string;
   bullets: string[];
 }
 
-export interface Project {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  techStack: string[];
-  category: ("Web" | "Mobile" | "AI" | "IoT")[];
-  liveUrl: string;
-  impact: string[];
-  color: string;
+export interface SkillCategory {
+  category: string;
+  skills: string[];
 }
 
-export interface SkillGroup {
-  label: string;
-  icon: string;
-  skills: string[];
+export interface BeyondCodeItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  image?: string;
+  aspectRatio?: "square" | "landscape" | "portrait";
 }
 
 export interface Education {
@@ -41,16 +78,10 @@ export interface Education {
   location: string;
 }
 
-export interface Certification {
-  title: string;
-  issuer: string;
-  year: string;
-  icon: string;
-}
-
 export interface ContactInfo {
   email: string;
   linkedin: string;
   whatsapp: string;
   github: string;
+  instagram?: string;
 }
