@@ -25,6 +25,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Achmad Haidar Tamimi" }],
   creator: "Achmad Haidar Tamimi",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

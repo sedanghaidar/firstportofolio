@@ -46,12 +46,12 @@ function DynamicRole() {
   }
 
   return (
-    <span className="inline-flex items-center font-mono">
+    <span className="inline-flex items-center font-mono whitespace-nowrap">
       <span className="text-[#8B7CFF]">{currentText || "\u00A0"}</span>
       <motion.span
         animate={{ opacity: [1, 0, 1] }}
         transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        className="text-white font-mono font-light ml-1 inline-block"
+        className="text-white font-mono font-light ml-0.5 inline-block"
         aria-hidden="true"
       >
         |
@@ -116,43 +116,50 @@ export function HeroSection() {
       <SpotlightGrid />
 
       <div className="relative z-10 mx-auto max-w-6xl w-full my-auto pt-8 pb-12">
-        {/* 1. Greeting */}
-        <motion.p
+        {/* 1. Status Badge */}
+        <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-xl sm:text-2xl md:text-3xl font-medium text-[#8A8A8A] mb-4 tracking-tight flex items-center gap-2"
+          className="mb-4"
         >
-          <span>Hi, I'm <span className="text-white font-semibold">Achmad Haidar</span></span>
-          <motion.span
-            animate={{ rotate: [0, 20, -10, 20, -5, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut", repeatDelay: 1 }}
-            className="inline-block origin-[70%_70%] text-2xl sm:text-3xl md:text-4xl"
-            role="img"
-            aria-label="waving hand"
-          >
-            👋
-          </motion.span>
+          <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] sm:text-xs font-mono text-[#8B7CFF] uppercase tracking-wider select-none">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8B7CFF] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#8B7CFF]" />
+            </span>
+            <span>AVAILABLE FOR WORK</span>
+          </span>
+        </motion.div>
+
+        {/* 2. Greeting (Below Badge) */}
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.08 }}
+          className="text-lg sm:text-2xl md:text-3xl font-semibold text-[#8A8A8A] mb-2.5 tracking-tight"
+        >
+          Hi, I'm <span className="text-white font-bold">Achmad Haidar</span> 👋
         </motion.p>
 
-        {/* 2. Animated Role */}
+        {/* 2. Main Animated Role Title (LARGEST - Hero Focal Point) */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="font-mono font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase leading-tight mb-6 min-h-[1.2em] flex items-center"
+          className="font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase leading-[1.05] text-white mb-6 min-h-[1.15em] flex items-center"
         >
           <DynamicRole />
         </motion.h1>
 
-        {/* 3. Short Description */}
+        {/* 3. Subtitle / Value Proposition Description (SMALLEST & CLEANEST) */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-base sm:text-lg text-[#8A8A8A] font-sans font-normal leading-relaxed max-w-xl mb-10 whitespace-pre-line"
+          className="text-xs sm:text-sm md:text-base text-[#8A8A8A] font-sans font-normal leading-relaxed max-w-xl mb-10"
         >
-          {"I enjoy turning ideas and problems\ninto practical digital products."}
+          I enjoy turning complex ideas and problems into practical, intuitive digital products.
         </motion.p>
 
         {/* 4. CTA Buttons */}

@@ -39,6 +39,7 @@ export const projects: Project[] = [
       "Modernizing a legacy event management system into a structured, role-based digital workflow for Jawa Tengah Provincial Government.",
     technologies: ["Laravel 11", "Flutter", "MySQL"],
     featured: true,
+    image: "/projects/esensi.png",
     liveUrl: "https://cs.saturnalia.jatengprov.go.id/",
     caseStudy: {
       context:
@@ -75,6 +76,7 @@ export const projects: Project[] = [
       "Facial skin type classification powered by Convolutional Neural Networks (CNN) providing instant skin type analysis and tailored care suggestions.",
     technologies: ["TensorFlow", "Python", "Gradio", "Hugging Face"],
     featured: false,
+    image: "/projects/skin-checker.png",
     liveUrl: "https://huggingface.co/spaces/sayhaitome/CheckYourSkin",
     caseStudy: {
       context:
@@ -107,6 +109,7 @@ export const projects: Project[] = [
       "A high-conversion commercial catering website designed for a local food enterprise featuring integrated WhatsApp ordering flows.",
     technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
     featured: false,
+    image: "/projects/saliwang-catering.png",
     liveUrl: "https://saliwangcatering.site/",
     caseStudy: {
       context:
@@ -139,6 +142,7 @@ export const projects: Project[] = [
       "An interactive nature tourism destination portal equipped with lightweight booking and facility discovery workflows.",
     technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
     featured: false,
+    image: "/projects/wana-jonggol.jpg",
     liveUrl: "https://wanajonggolpark.online/",
     caseStudy: {
       context:
@@ -159,30 +163,73 @@ export const projects: Project[] = [
       ],
     },
   },
-];
-
-export const additionalProjects: AdditionalProject[] = [
+  {
+    id: "synergy",
+    number: "05",
+    title: "SYNERGY",
+    subtitle: "Disaster Volunteer Collaboration Platform",
+    year: "2024",
+    category: "UI/UX Competition Project",
+    description:
+      "A collaboration platform designed for a UI/UX competition, aimed at connecting volunteers with individuals needing immediate assistance in disaster locations.",
+    technologies: ["Figma", "Prototyping", "User Research", "UI/UX Design"],
+    featured: false,
+    image: "/projects/synergy.png",
+    caseStudy: {
+      context:
+        "A collaboration platform designed for a UI/UX competition, aimed at connecting volunteers with individuals needing immediate assistance in disaster locations.",
+      problem:
+        "Inefficient coordination and communication gaps between available relief volunteers and disaster victims requiring urgent help.",
+      approach:
+        "Designed a human-centered mobile platform prioritizing accessibility, rapid matchmaking, and clear information hierarchy for emergency situations.",
+      contribution: [
+        "Engineered the end-to-end UI/UX design, from initial wireframing to high-fidelity interactive prototyping.",
+        "Structured user flows and visual hierarchy to ensure intuitive navigation under high-stress conditions.",
+      ],
+      implementation:
+        "Built with Figma, Prototyping, and User Research methodologies.",
+      result: [
+        "Successfully delivered a comprehensive, high-fidelity interactive prototype for a UI/UX design competition.",
+      ],
+    },
+  },
   {
     id: "smart-parking",
+    number: "06",
     title: "Smart Parking System",
-    subtitle: "IoT Real-Time Monitor",
+    subtitle: "IoT Real-Time Telemetry Monitor",
+    year: "2024",
     category: "IoT System",
     description:
       "Real-time parking slot monitoring prototype powered by ESP32 microcontrollers, ultrasonic sensors, and a live web dashboard.",
     technologies: ["ESP32", "Ultrasonic Sensor", "Web Dashboard", "C++"],
+    featured: false,
+    image: "/projects/smart-parking.jpg",
     liveUrl:
       "https://launchinpad.com/project/automatic-parking-count-technology-ac6ca7e/",
-  },
-  {
-    id: "gas-care",
-    title: "GasCare",
-    subtitle: "Safety Sensor Monitor",
-    category: "IoT System",
-    description:
-      "Gas leak detection and LPG cylinder weight monitoring safety system integrating MQ-2 gas sensors and Load Cell telemetry.",
-    technologies: ["ESP32", "MQ-2 Sensor", "Load Cell", "C++"],
+    caseStudy: {
+      context:
+        "An IoT embedded system engineering project built to automate urban parking slot tracking and display real-time availability.",
+      problem:
+        "Drivers waste significant time searching for available parking slots in crowded venues without real-time telemetry visibility.",
+      approach:
+        "Built a hardware prototype integrating ultrasonic distance sensors connected to ESP32 telemetry microcontrollers broadcasting live slot occupancy data to a web dashboard.",
+      contribution: [
+        "Programmed ESP32 microcontrollers in C++ for ultrasonic sensor telemetry reading.",
+        "Engineered real-time web dashboard displaying slot availability status.",
+        "Collaborated in hardware assembly and prototype casing integration with team.",
+      ],
+      implementation:
+        "ESP32 microcontrollers transmitting sensor telemetry data over WebSocket / HTTP endpoints to a responsive frontend dashboard.",
+      result: [
+        "Successfully demonstrated automated real-time slot tracking prototype.",
+        "Published project showcase on Launchinpad platform.",
+      ],
+    },
   },
 ];
+
+export const additionalProjects: AdditionalProject[] = [];
 
 export const experiences: Experience[] = [
   {

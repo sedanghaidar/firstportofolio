@@ -95,6 +95,17 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
           </div>
 
+          {/* Project Screenshot Visual Banner */}
+          {project.image && (
+            <div className="mb-8 overflow-hidden rounded-xl border border-white/10 max-h-96 bg-[#171717]">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+          )}
+
           {/* Case Study Detailed Breakdown */}
           {caseStudy ? (
             <div className="space-y-8 border-t border-white/10 pt-8">

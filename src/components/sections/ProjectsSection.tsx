@@ -236,29 +236,39 @@ export function ProjectsSection() {
               >
                 <div>
                   {/* Card Top Banner / Visual Thumbnail */}
-                  <div className="relative mb-6 h-48 w-full rounded-xl border border-white/10 bg-gradient-to-br from-[#171717] via-[#0A0A0A] to-[#121020] p-6 flex flex-col justify-between overflow-hidden group-hover:border-[#8B7CFF]/40 transition-colors">
+                  <div className="relative mb-6 h-56 w-full rounded-xl border border-white/10 bg-[#171717] overflow-hidden group-hover:border-[#8B7CFF]/50 transition-all duration-300">
+                    {project.image ? (
+                      <>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="absolute inset-0 h-full w-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#171717] via-[#0A0A0A] to-[#121020]" />
+                    )}
+
                     {/* Top Badges */}
-                    <div className="flex items-center justify-between font-mono text-xs z-10">
-                      <span className="bg-white/10 text-white font-bold px-2.5 py-1 rounded">
+                    <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between font-mono text-xs z-10">
+                      <span className="bg-black/75 backdrop-blur-md text-white font-bold px-2.5 py-1 rounded border border-white/10">
                         {project.number}
                       </span>
-                      <span className="bg-[#8B7CFF]/15 text-[#8B7CFF] font-bold px-2.5 py-1 rounded border border-[#8B7CFF]/30 uppercase text-[10px]">
+                      <span className="bg-black/75 backdrop-blur-md text-[#8B7CFF] font-bold px-2.5 py-1 rounded border border-[#8B7CFF]/40 uppercase text-[10px]">
                         {project.year}
                       </span>
                     </div>
 
-                    {/* Centered Large Project Title Visual */}
-                    <div className="z-10 text-center my-auto">
-                      <h3 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight group-hover:text-[#8B7CFF] transition-colors">
+                    {/* Bottom Overlay Title */}
+                    <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10">
+                      <span className="font-mono text-[10px] font-semibold text-[#8B7CFF] uppercase tracking-wider block mb-0.5">
+                        {project.category}
+                      </span>
+                      <h3 className="font-display font-black text-xl text-white tracking-tight group-hover:text-[#8B7CFF] transition-colors drop-shadow-md">
                         {project.title}
                       </h3>
-                      <p className="font-mono text-[11px] text-[#8A8A8A] uppercase tracking-wider mt-1">
-                        {project.category}
-                      </p>
                     </div>
-
-                    {/* Subtle grid background inside thumb */}
-                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
                   </div>
 
                   {/* Project Info */}

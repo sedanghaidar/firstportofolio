@@ -6,10 +6,12 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { ScrollProgressBar } from "@/components/ui/scroll-progress";
 
 export default function HomePage() {
   return (
     <>
+      <ScrollProgressBar />
       <Navbar />
       <main id="main-content">
         <HeroSection />
