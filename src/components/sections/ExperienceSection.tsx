@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { experiences } from "@/data/portfolio";
 import { Briefcase, Code, Palette, BookOpen } from "lucide-react";
@@ -11,10 +12,107 @@ const categoryIcons = {
   teaching: BookOpen,
 };
 
+// Animated Constellation Dots Background without mouse interaction
+function CareerDotsBg() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
+    let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
+
+    const handleResize = () => {
+      if (!canvas || !canvas.parentElement) return;
+      width = canvas.width = canvas.parentElement.clientWidth;
+      height = canvas.height = canvas.parentElement.clientHeight;
+      initNodes();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    const numNodes = 40;
+    const nodes: Array<{ x: number; y: number; vx: number; vy: number; radius: number }> = [];
+
+    const initNodes = () => {
+      nodes.length = 0;
+      for (let i = 0; i < numNodes; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: Math.random() * 1.5 + 1,
+        });
+      }
+    };
+
+    initNodes();
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Update & Draw Nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+
+        if (n.x < 0 || n.x > width) n.vx *= -1;
+        if (n.y < 0 || n.y > height) n.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(139, 124, 255, 0.4)";
+        ctx.fill();
+
+        // Connect node to node
+        for (let j = i + 1; j < nodes.length; j++) {
+          const n2 = nodes[j];
+          const dx = n.x - n2.x;
+          const dy = n.y - n2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            const alpha = (1 - dist / 130) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = `rgba(139, 124, 255, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-60"
+    />
+  );
+}
+
 export function ExperienceSection() {
   return (
-    <section id="experience" className="relative bg-[#0A0A0A] py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-white/10">
-      <div className="mx-auto max-w-6xl">
+    <section id="experience" className="relative bg-[#0A0A0A] py-24 px-6 sm:px-10 lg:px-16 xl:px-20 border-t border-white/10 overflow-hidden">
+      <CareerDotsBg />
+
+      <div className="relative z-10 mx-auto max-w-6xl">
         {/* Section Header */}
         <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>

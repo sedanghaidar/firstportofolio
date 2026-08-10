@@ -148,9 +148,9 @@ const ALL_PROJECTS: Project[] = [
 
 const FILTERS = [
   { id: "all", label: "ALL" },
-  { id: "web", label: "WEB & ENTERPRISE" },
-  { id: "ai", label: "AI & MACHINE LEARNING" },
-  { id: "iot", label: "IOT & HARDWARE" },
+  { id: "web", label: "WEB" },
+  { id: "ai", label: "AI" },
+  { id: "other", label: "OTHER" },
 ];
 
 export function ProjectsSection() {
@@ -159,23 +159,19 @@ export function ProjectsSection() {
 
   const filteredProjects = ALL_PROJECTS.filter((p) => {
     if (activeFilter === "all") return true;
-    if (activeFilter === "web")
-      return (
-        p.category.toLowerCase().includes("web") ||
-        p.category.toLowerCase().includes("enterprise") ||
-        p.category.toLowerCase().includes("commercial") ||
-        p.category.toLowerCase().includes("tourism")
-      );
-    if (activeFilter === "ai")
-      return (
-        p.category.toLowerCase().includes("machine learning") ||
-        p.category.toLowerCase().includes("ai")
-      );
-    if (activeFilter === "iot")
-      return (
-        p.category.toLowerCase().includes("iot") ||
-        p.category.toLowerCase().includes("hardware")
-      );
+
+    const cat = p.category.toLowerCase();
+    const isWeb =
+      cat.includes("web") ||
+      cat.includes("enterprise") ||
+      cat.includes("commercial") ||
+      cat.includes("tourism");
+    const isAi = cat.includes("machine learning") || cat.includes("ai");
+
+    if (activeFilter === "web") return isWeb;
+    if (activeFilter === "ai") return isAi;
+    if (activeFilter === "other") return !isWeb && !isAi;
+
     return true;
   });
 
