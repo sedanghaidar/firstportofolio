@@ -175,6 +175,7 @@ export const projects: Project[] = [
     technologies: ["Figma", "Prototyping", "User Research", "UI/UX Design"],
     featured: false,
     image: "/projects/synergy.png",
+    liveUrl: "https://www.figma.com/proto/rvWEvQMaVfRyDQW3tj4A3U/Untitled?node-id=8-2&p=f&t=YYZ0zeZE1peqhnCF-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=8%3A2&show-proto-sidebar=1",
     caseStudy: {
       context:
         "A collaboration platform designed for a UI/UX competition, aimed at connecting volunteers with individuals needing immediate assistance in disaster locations.",
