@@ -110,7 +110,7 @@ export const projects: Project[] = [
     technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
     featured: false,
     image: "/projects/saliwang-catering.png",
-    liveUrl: "https://saliwangcatering.site/",
+    liveUrl: "https://sedanghaidar.github.io/SaliwangCatering/",
     caseStudy: {
       context:
         "Client project for an established local catering business looking to establish a professional digital footprint and streamline customer orders.",
@@ -143,7 +143,7 @@ export const projects: Project[] = [
     technologies: ["HTML5", "Tailwind CSS", "JavaScript"],
     featured: false,
     image: "/projects/wana-jonggol.jpg",
-    liveUrl: "https://wanajonggolpark.online/",
+    liveUrl: "https://sedanghaidar.github.io/wanajonggolpark/",
     caseStudy: {
       context:
         "Digital tourism initiative showcasing Wanajonggol Park attractions, amenities, and visit reservation options.",
