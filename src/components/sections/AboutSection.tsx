@@ -179,10 +179,6 @@ export function AboutSection() {
               My background spans software development, data analytics, and business development. I have hands-on experience developing enterprise systems for government institutions, managing IT infrastructure, and leading business expansion from the ground up — giving me a rare ability to navigate both the technical and business sides of a problem.
             </p>
 
-            <p>
-              I am a fast learner and proactive problem-solver who thrives at transforming complex challenges into practical, impactful solutions. Whether it&apos;s shipping a production-grade web app, structuring an operational SOP, or QA-testing a live government application, I bring the same level of ownership and precision.
-            </p>
-
             <p className="font-sans font-medium text-base text-white/90">
               I am open to diverse roles — from <span className="text-[#8B7CFF] font-bold">Software Engineering</span> and <span className="text-[#8B7CFF] font-bold">Data-Driven Development</span> to <span className="text-[#8B7CFF] font-bold">Business & Tech Innovation</span> — where I can contribute meaningfully and continue growing at the intersection of technology and business.
             </p>

@@ -64,7 +64,7 @@ export function Navbar() {
             aria-label="Haidar portfolio top"
           >
             <span className="font-display font-black text-xl tracking-tighter text-white group-hover:text-[#8B7CFF] transition-colors italic">
-              SAY HAI!
+              HaidarPorto.
             </span>
             <span className="h-1.5 w-1.5 rounded-full bg-[#8B7CFF]" />
           </button>

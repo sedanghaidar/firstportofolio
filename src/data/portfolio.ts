@@ -345,8 +345,19 @@ export const skillCategories: SkillCategory[] = [
     skills: ["MySQL", "PostgreSQL", "SQL"],
   },
   {
-    category: "TOOLS & PLATFORM",
-    skills: ["Git", "Figma", "Postman", "VS Code", "Google Colab", "Ubuntu"],
+    category: "TOOLS",
+    skills: ["Git", "Jira", "Postman", "VS Code", "Google Colab", "Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint"],
+  },
+  {
+    category: "TECHNICAL SKILLS",
+    skills: [
+      "Data Analytics & Visualization",
+      "Data Cleaning & Preprocessing",
+      "Exploratory Data Analysis (EDA)",
+      "Product Analysis",
+      "User Research",
+      "Problem Solving",
+    ],
   },
 ];
 
@@ -382,7 +393,7 @@ export const education: Education = {
   degree: "Bachelor of Informatics",
   period: "2022 – 2026",
   gpa: "3.82 / 4.00",
-  concentration: "Software Engineering & Database Systems",
+  concentration: "Technology & Business Development",
   location: "Yogyakarta, Indonesia",
 };
 
