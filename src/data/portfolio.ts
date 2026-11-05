@@ -234,19 +234,48 @@ export const additionalProjects: AdditionalProject[] = [];
 
 export const experiences: Experience[] = [
   {
+    id: "cipta-rasa-farm",
+    role: "Business Development",
+    company: "Cipta Rasa Farm",
+    location: "Bogor, Indonesia",
+    duration: "Mar 2026 – Present",
+    year: "2026",
+    category: "management",
+    description:
+      "Driving business expansion from inception, scaling operations to 5 active outlets while overseeing field teams and establishing the company's operational foundation.",
+    bullets: [
+      "Drove business expansion from inception to 5 operational outlets while managing 10 field staff structured into 2 teams per branch.",
+      "Developed operational SOPs, business proposals, legal documents, and partnership templates to support operational standardization and strategic partnerships, including collaboration with UIN Syarif Hidayatullah.",
+    ],
+  },
+  {
     id: "diskominfo",
     role: "Software Developer Intern",
-    company: "Dinas Komunikasi dan Informasi Provinsi Jawa Tengah",
+    company: "Dinas Komunikasi dan Informatika Provinsi Jawa Tengah",
     location: "Semarang, Indonesia",
     duration: "Aug 2025 – Oct 2025",
     year: "2025",
     category: "engineering",
     description:
-      "Developed a new enterprise event management system from scratch using Laravel 11 to replace an abandoned legacy application.",
+      "Developed an event management system to replace manual administrative processes using Laravel and Flutter, while also serving as QA Tester for the JNN application.",
     bullets: [
-      "Engineered a responsive, mobile-ready architecture, allowing the web application to be installed and function seamlessly as a mobile WebView client.",
-      "Designed and implemented a multi-role administrative dashboard with a completely new, user-friendly UI/UX component hierarchy.",
-      "Built integrated features such as QR-based digital attendance and live material distribution within a lean agile team.",
+      "Developed an event management system to replace manual administrative processes using Laravel and Flutter by translating actual operational needs and project requirements into functional application features.",
+      "Acted as a Quality Assurance (QA) Tester for the JNN application, conducting software testing to ensure system reliability and compliance with application standards.",
+    ],
+  },
+  {
+    id: "teaching-assistant",
+    role: "Teaching Assistant (Graphic Design)",
+    company: "Universitas Amikom Yogyakarta",
+    location: "Sleman, Indonesia",
+    duration: "Mar 2023 – Jan 2024",
+    year: "2023 - 2024",
+    category: "teaching",
+    description:
+      "Facilitated hands-on practical sessions for 40+ undergraduate students, translating complex UI/UX principles, layout theory, and visual composition into structured learning modules.",
+    bullets: [
+      "Facilitated hands-on practical sessions for 40+ undergraduate students, translating complex UI/UX principles, layout theory, and visual composition into structured learning modules.",
+      "Guided students in applying systematic design frameworks, including layout hierarchy, color theory, and visual composition, to develop accessible and consistent digital assets.",
     ],
   },
   {
@@ -258,11 +287,10 @@ export const experiences: Experience[] = [
     year: "2021 - 2022",
     category: "management",
     description:
-      "Managed and optimized the company's local IT infrastructure, including hardware components and network systems, to ensure seamless daily operations.",
+      "Managed and optimized the company's IT infrastructure, including hardware and network systems, while providing technical support to maintain seamless daily operations.",
     bullets: [
-      "Executed data recovery procedures for damaged storage devices and established structured backup protocols to guarantee long-term data security.",
-      "Architected a centralized storage system for company operational data, significantly improving data accessibility and cross-departmental workflow efficiency.",
-      "Provided day-to-day technical support and resolved hardware/software bottlenecks for both print production teams and non-technical staff.",
+      "Managed and optimized the company's IT infrastructure, including hardware and network systems, while providing technical support to maintain seamless daily operations across production and administrative teams.",
+      "Performed regular hardware maintenance, configuration, and troubleshooting for PCs and network devices, ensuring high availability and minimizing operational downtime.",
     ],
   },
   {
@@ -295,22 +323,6 @@ export const experiences: Experience[] = [
       "Established a standardized design system (color direction and visual hierarchy), ensuring visual consistency and improving information accessibility across all event platforms.",
       "Coordinated a multi-format design pipeline (posters, social media, on-site materials) by tracking deliverable metrics to ensure 100% on-time execution.",
       "Collaborated with cross-functional committees to translate promotional data and event briefs into targeted, high-impact stage graphics and branding materials.",
-    ],
-  },
-  {
-    id: "teaching-assistant",
-    role: "Teaching Assistant (Graphic Design)",
-    company: "Universitas Amikom Yogyakarta",
-    location: "Sleman, Indonesia",
-    duration: "Mar 2023 – Jan 2024",
-    year: "2023 - 2024",
-    category: "teaching",
-    description:
-      "Facilitated hands-on practical sessions for 40+ undergraduate students, breaking down complex UI/UX principles and visual layout theories into structured, actionable learning modules.",
-    bullets: [
-      "Evaluated student project submissions by establishing objective grading criteria, transforming subjective design concepts into measurable performance metrics.",
-      "Guided students in applying systematic design frameworks—including layout hierarchy, color theory, and visual composition—to create accessible and consistent digital assets.",
-      "Delivered structured, iterative feedback on design outputs, simulating real-world tech industry reviews to improve students' technical execution and problem-solving skills.",
     ],
   },
 ];

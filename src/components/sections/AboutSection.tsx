@@ -172,19 +172,19 @@ export function AboutSection() {
             className="lg:col-span-7 space-y-6 text-[#8A8A8A] font-sans text-base leading-relaxed"
           >
             <p>
-              Hello everyone👋, My Name is Achmad Haidar Tamimi, I am a fresh Informatics graduate with a strong passion for technology and software development, particularly in full-stack web development. I enjoy building applications that are not only functional, but also intuitive and visually engaging.
+              Hello everyone 👋, I&apos;m <span className="text-white font-medium">Achmad Haidar Tamimi</span> — an Informatics graduate from Universitas Amikom Yogyakarta with a strong passion for bridging technology and business. I enjoy building solutions that are not only technically sound, but also grounded in real operational needs and strategic value.
             </p>
 
             <p>
-              Alongside my technical background, I have experience in creative content and visual design, allowing me to approach problem-solving from both a technical and creative perspective. I am familiar with frontend and backend fundamentals, as well as modern development tools and workflows.
+              My background spans software development, data analytics, and business development. I have hands-on experience developing enterprise systems for government institutions, managing IT infrastructure, and leading business expansion from the ground up — giving me a rare ability to navigate both the technical and business sides of a problem.
             </p>
 
             <p>
-              I am a fast learner, detail-oriented, and adaptable to new technologies and challenges.
+              I am a fast learner and proactive problem-solver who thrives at transforming complex challenges into practical, impactful solutions. Whether it&apos;s shipping a production-grade web app, structuring an operational SOP, or QA-testing a live government application, I bring the same level of ownership and precision.
             </p>
 
             <p className="font-sans font-medium text-base text-white/90">
-              Currently, I am seeking opportunities as a <span className="text-[#8B7CFF] font-bold">Junior Full-Stack Developer</span>, <span className="text-[#8B7CFF] font-bold">Software Intern</span>, or <span className="text-[#8B7CFF] font-bold">Tech-related Intern</span>, where I can contribute, learn, and grow in a collaborative environment.
+              I am open to diverse roles — from <span className="text-[#8B7CFF] font-bold">Software Engineering</span> and <span className="text-[#8B7CFF] font-bold">Data-Driven Development</span> to <span className="text-[#8B7CFF] font-bold">Business & Tech Innovation</span> — where I can contribute meaningfully and continue growing at the intersection of technology and business.
             </p>
           </motion.div>
 
