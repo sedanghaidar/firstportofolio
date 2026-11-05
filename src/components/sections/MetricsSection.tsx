@@ -2,7 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Brain, Lightbulb, Users, FileCheck, ShieldCheck, BookOpen, Workflow } from "lucide-react";
+import {
+  Sparkles,
+  Brain,
+  Lightbulb,
+  Users,
+  FileCheck,
+  ShieldCheck,
+  BookOpen,
+  Workflow,
+  BarChart3,
+  Database,
+  Search,
+  LineChart,
+} from "lucide-react";
 
 // Varied Organic Flower Divider Icons (4 distinct flower shapes)
 function FlowerDividerIcon({ index = 0, className }: { index?: number; className?: string }) {
@@ -208,6 +221,12 @@ function SkillLogo({ name, className = "h-5 w-5" }: { name: string; className?: 
           <path fill="#F05032" d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.216 1.38-.07 1.895.446.52.52.66 1.264.437 1.91l2.67 2.67c.644-.22 1.387-.074 1.905.443.714.715.714 1.874 0 2.59-.716.715-1.876.715-2.592 0-.53-.53-.67-1.282-.435-1.93l-2.483-2.484V15.73c.184.103.35.244.49.444.716.715.716 1.874 0 2.59-.715.715-1.875.715-2.59 0-.717-.716-.717-1.875 0-2.59.18-.18.375-.314.593-.41V9.456c-.218-.096-.413-.23-.593-.41-.53-.53-.67-1.284-.435-1.93L7.394 4.438.456 11.376c-.608.604-.608 1.583 0 2.188l10.48 10.478c.604.604 1.582.604 2.187 0l10.423-10.424c.604-.604.604-1.582 0-2.188z"/>
         </svg>
       );
+    case "Jira":
+      return (
+        <svg viewBox="0 0 24 24" className={className}>
+          <path fill="#0052CC" d="M11.53 2c0 2.4 1.97 4.35 4.35 4.35h1.78v1.7c0 2.4 1.94 4.34 4.34 4.35V2h-10.47zm-5.76 5.8c0 2.4 1.96 4.35 4.35 4.35h1.78v1.71c0 2.4 1.94 4.34 4.34 4.34V7.8H5.77zm-5.77 5.8c0 2.4 1.97 4.35 4.35 4.35h1.78v1.7c0 2.4 1.95 4.35 4.35 4.35V13.6H0z"/>
+        </svg>
+      );
     case "Postman":
       return (
         <svg viewBox="0 0 24 24" className={className}>
@@ -216,6 +235,7 @@ function SkillLogo({ name, className = "h-5 w-5" }: { name: string; className?: 
         </svg>
       );
     case "VSCode":
+    case "VS Code":
       return (
         <svg viewBox="0 0 24 24" className={className}>
           <path fill="#007ACC" d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63L2.84 5.76a.748.748 0 0 0-1.02.13L.21 7.84a.752.752 0 0 0 .12 1.03l4.7 3.53-4.7 3.53a.752.752 0 0 0-.12 1.03l1.61 1.95a.748.748 0 0 0 1.02.13l4.205-3.37 9.46 8.63c.49.45 1.21.57 1.705.29l4.94-2.377A1.5 1.5 0 0 0 24 20.763V3.237a1.5 1.5 0 0 0-.85-1.35zM18 17.5L10.5 12 18 6.5v11z"/>
@@ -224,9 +244,37 @@ function SkillLogo({ name, className = "h-5 w-5" }: { name: string; className?: 
     case "Antigravity":
       return <Sparkles className={`${className} text-[#8B7CFF]`} />;
     case "GoogleColab":
+    case "Google Colab":
       return (
         <svg viewBox="0 0 24 24" className={className}>
           <path fill="#F9AB00" d="M16.9 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zm-9.8 0a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z"/>
+        </svg>
+      );
+    case "Microsoft Word":
+    case "MS Word":
+    case "Word":
+      return (
+        <svg viewBox="0 0 24 24" className={className}>
+          <rect width="24" height="24" rx="4" fill="#185ABD" />
+          <path fill="#FFF" d="M5.8 7.2h2.3l1.8 6.8 1.9-6.8h2l1.9 6.8 1.8-6.8h2.3l-2.8 9.6h-2.1L13 10.3l-1.9 6.5H9L5.8 7.2z" />
+        </svg>
+      );
+    case "Microsoft Excel":
+    case "MS Excel":
+    case "Excel":
+      return (
+        <svg viewBox="0 0 24 24" className={className}>
+          <rect width="24" height="24" rx="4" fill="#107C41" />
+          <path fill="#FFF" d="M6.8 7.2h2.5l2.7 4.2 2.7-4.2h2.5l-3.9 5.8 4.1 6.2h-2.5l-2.9-4.5-2.9 4.5H6.6l4.1-6.2-3.9-5.8z" />
+        </svg>
+      );
+    case "Microsoft PowerPoint":
+    case "MS PowerPoint":
+    case "PowerPoint":
+      return (
+        <svg viewBox="0 0 24 24" className={className}>
+          <rect width="24" height="24" rx="4" fill="#D83B01" />
+          <path fill="#FFF" d="M7.5 7.2h5.2c2.4 0 4.1 1.5 4.1 3.8s-1.7 3.8-4.1 3.8H9.8V19H7.5V7.2zm2.3 5.7h2.8c1.2 0 2-.7 2-1.9s-.8-1.9-2-1.9H9.8v3.8z" />
         </svg>
       );
     case "KaggleNotebook":
@@ -235,10 +283,21 @@ function SkillLogo({ name, className = "h-5 w-5" }: { name: string; className?: 
           <path fill="#20BEFF" d="M18.825 23.859h-5.443l-6.241-8.905-2.032 1.959v6.946H.508V.141h4.601v12.222l7.77-12.222h5.534l-7.79 11.233 8.202 12.485z"/>
         </svg>
       );
+    case "Data Analytics & Visualization":
+      return <BarChart3 className={`${className} text-[#8B7CFF]`} />;
+    case "Data Cleaning & Preprocessing":
+      return <Database className={`${className} text-emerald-400`} />;
+    case "Exploratory Data Analysis":
+    case "Exploratory Data Analysis (EDA)":
+      return <Search className={`${className} text-amber-400`} />;
+    case "Product Analysis":
+      return <LineChart className={`${className} text-sky-400`} />;
+    case "User Research":
+      return <Users className={`${className} text-rose-400`} />;
+    case "Problem Solving":
+      return <Lightbulb className={`${className} text-amber-300`} />;
     case "Analytical Thinking":
       return <Brain className={`${className} text-[#8B7CFF]`} />;
-    case "Problem Solving":
-      return <Lightbulb className={`${className} text-amber-400`} />;
     case "Team Collaboration":
       return <Users className={`${className} text-emerald-400`} />;
     case "Requirement Analysis":
@@ -327,33 +386,34 @@ const DOMAINS: SkillDomain[] = [
   },
   {
     id: "tools",
-    title: "Tools & Platform",
-    shortLabel: "Tools & Platform",
+    title: "Tools",
+    shortLabel: "Tools",
     description:
-      "Utilizing modern developer workflows, AI coding assistants, API debugging, and cloud notebook environments.",
+      "Utilizing modern developer workflows, project management tools, API debugging, and productivity platforms.",
     skills: [
       { name: "Git" },
+      { name: "Jira" },
       { name: "Postman" },
       { name: "VSCode" },
-      { name: "Antigravity" },
       { name: "GoogleColab" },
-      { name: "KaggleNotebook" },
+      { name: "Microsoft Word" },
+      { name: "Microsoft Excel" },
+      { name: "Microsoft PowerPoint" },
     ],
   },
   {
-    id: "softskill",
-    title: "Softskill",
-    shortLabel: "Softskill",
+    id: "technical-skills",
+    title: "Technical Skills",
+    shortLabel: "Technical Skills",
     description:
-      "Core professional capabilities in problem solving, strategic analysis, software quality, and cross-functional execution.",
+      "Core professional capabilities in data analytics, product analysis, user research, and cross-functional execution.",
     skills: [
-      { name: "Analytical Thinking" },
+      { name: "Data Analytics & Visualization" },
+      { name: "Data Cleaning & Preprocessing" },
+      { name: "Exploratory Data Analysis" },
+      { name: "Product Analysis" },
+      { name: "User Research" },
       { name: "Problem Solving" },
-      { name: "Team Collaboration" },
-      { name: "Requirement Analysis" },
-      { name: "Software Testing" },
-      { name: "System Documentation" },
-      { name: "Business Process Understanding" },
     ],
   },
 ];
