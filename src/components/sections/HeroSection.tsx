@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Download } from "lucide-react";
 import { SpotlightGrid } from "@/components/ui/spotlight-grid";
 
-const ROLES = ["WEB DEVELOPER", "DATA ANALYST", "UI/UX DESIGNER"];
+const ROLES = ["BUSINESS DEVELOPMENT", "DATA ANALYST", "UI/UX DESIGNER"];
 
 function DynamicRole() {
   const prefersReducedMotion = useReducedMotion();
