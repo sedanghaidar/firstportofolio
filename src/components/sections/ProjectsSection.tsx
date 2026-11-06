@@ -121,33 +121,9 @@ function InteractiveProjectBackground() {
   );
 }
 
-// Combine projects into unified dataset
-const ALL_PROJECTS: Project[] = [
-  ...projects,
-  ...additionalProjects.map((p, idx) => ({
-    id: p.id,
-    number: `0${projects.length + idx + 1}`,
-    title: p.title,
-    subtitle: p.subtitle,
-    year: "2024",
-    category: p.category,
-    description: p.description,
-    technologies: p.technologies,
-    featured: false,
-    liveUrl: p.liveUrl,
-    caseStudy: {
-      context: p.description,
-      problem: "Hardware telemetry and real-time monitoring challenge.",
-      approach: "Built hardware sensor pipeline with microcontrollers and live web dashboard.",
-      contribution: ["Configured hardware sensors and microcontrollers.", "Engineered data payload telemetry."],
-      implementation: `Built with ${p.technologies.join(", ")}.`,
-      result: ["Functional prototype successfully tested."],
-    },
-  })),
-];
-
 const FILTERS = [
   { id: "all", label: "ALL" },
+  { id: "data", label: "DATA & BI" },
   { id: "web", label: "WEB" },
   { id: "ai", label: "AI" },
   { id: "other", label: "OTHER" },
@@ -157,7 +133,31 @@ export function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filteredProjects = ALL_PROJECTS.filter((p) => {
+  const allProjects: Project[] = [
+    ...projects,
+    ...additionalProjects.map((p, idx) => ({
+      id: p.id,
+      number: `0${projects.length + idx + 1}`,
+      title: p.title,
+      subtitle: p.subtitle,
+      year: "2024",
+      category: p.category,
+      description: p.description,
+      technologies: p.technologies,
+      featured: false,
+      liveUrl: p.liveUrl,
+      caseStudy: {
+        context: p.description,
+        problem: "Hardware telemetry and real-time monitoring challenge.",
+        approach: "Built hardware sensor pipeline with microcontrollers and live web dashboard.",
+        contribution: ["Configured hardware sensors and microcontrollers.", "Engineered data payload telemetry."],
+        implementation: `Built with ${p.technologies.join(", ")}.`,
+        result: ["Functional prototype successfully tested."],
+      },
+    })),
+  ];
+
+  const filteredProjects = allProjects.filter((p) => {
     if (activeFilter === "all") return true;
 
     const cat = p.category.toLowerCase();
@@ -167,10 +167,16 @@ export function ProjectsSection() {
       cat.includes("commercial") ||
       cat.includes("tourism");
     const isAi = cat.includes("machine learning") || cat.includes("ai");
+    const isData =
+      cat.includes("data") ||
+      cat.includes("business intelligence") ||
+      cat.includes("analytics") ||
+      cat.includes("dashboard");
 
     if (activeFilter === "web") return isWeb;
+    if (activeFilter === "data") return isData;
     if (activeFilter === "ai") return isAi;
-    if (activeFilter === "other") return !isWeb && !isAi;
+    if (activeFilter === "other") return !isWeb && !isAi && !isData;
 
     return true;
   });

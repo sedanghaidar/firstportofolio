@@ -16,7 +16,7 @@ export const metrics: Stat[] = [
     sublabel: "EXPERIENCE",
   },
   {
-    value: "6+",
+    value: "7+",
     label: "PROJECTS",
     sublabel: "SHIPPED",
   },
@@ -29,8 +29,53 @@ export const metrics: Stat[] = [
 
 export const projects: Project[] = [
   {
-    id: "esensi",
+    id: "kangsusu",
     number: "01",
+    title: "KangSusu Dashboard",
+    subtitle: "Sales & Business Performance Dashboard",
+    year: "2026",
+    category: "Business Intelligence Dashboard",
+    description:
+      "Transforming multi-outlet sales records into a structured business intelligence dashboard to monitor sales performance, product trends, and outlet performance.",
+    technologies: ["Google Sheets", "Data Analytics", "Pivot Tables"],
+    featured: true,
+    image: "/projects/kangsusu-dashboard.png",
+    liveUrl: "https://docs.google.com/spreadsheets/d/1pDmuAWPGmKx1Z5ezldDq67NJWTqLXLO7iET8fkkkM8U/edit?usp=sharing",
+    caseStudy: {
+      context:
+        "Developed as a personal business intelligence project based on a multi-outlet beverage business context. The project explores how sales data can be organized into a centralized dashboard to support business performance monitoring and decision-making.",
+
+      problem:
+        "Sales information from multiple outlets can be difficult to monitor and compare when records are not organized in a consistent structure. Without a centralized view, identifying daily sales trends, top-selling products, and outlet performance becomes less straightforward.",
+
+      approach:
+        "Designed a structured sales data management system using Google Sheets, combining data validation, automated calculations, Pivot Tables, and interactive charts to turn raw sales records into meaningful business insights.",
+
+      contribution: [
+        "Structured sales datasets covering transaction dates, outlets, products, cup sizes, quantities, and revenue.",
+        "Created reference tables for product catalogs and outlet information to maintain data consistency.",
+        "Implemented automated revenue calculations using Google Sheets formulas.",
+        "Developed KPI summaries to monitor total revenue, cups sold, average daily sales, and active outlets.",
+        "Built analytical visualizations to track daily sales trends, outlet performance, top-selling products, and sales distribution by cup size."
+      ],
+
+      implementation:
+        "Built using Google Sheets with data validation for consistent data entry, formulas for automated revenue calculations, and Pivot Tables to summarize sales performance. Visual reports were presented through line, bar, and doughnut charts in a centralized dashboard.",
+
+      result: [
+        "Created a centralized dashboard to present sales performance across five sample outlets.",
+        "Organized simulated sales records covering 24 product variants and two cup sizes.",
+        "Provided four analytical views to explore daily sales trends, outlet performance, product popularity, and cup size distribution.",
+        "Established a structured foundation for further business intelligence development."
+      ],
+
+      reflection:
+        "Strengthened my understanding of how data structure, business metrics, and visualization work together to support operational monitoring. This project also highlighted the importance of data consistency and selecting relevant KPIs to make business information easier to understand."
+    }
+  },
+  {
+    id: "esensi",
+    number: "02",
     title: "Esensi",
     subtitle: "Internal Event Management System",
     year: "2025",
@@ -67,7 +112,7 @@ export const projects: Project[] = [
   },
   {
     id: "skin-checker-ai",
-    number: "02",
+    number: "03",
     title: "Skin Checker AI",
     subtitle: "AI-Powered Facial Skin Classifier",
     year: "2025",
@@ -100,7 +145,7 @@ export const projects: Project[] = [
   },
   {
     id: "saliwang-catering",
-    number: "03",
+    number: "04",
     title: "SaliwangCatering",
     subtitle: "Commercial UMKM Catering Platform",
     year: "2024",
@@ -133,7 +178,7 @@ export const projects: Project[] = [
   },
   {
     id: "wana-jonggol-park",
-    number: "04",
+    number: "05",
     title: "WanaJonggolPark",
     subtitle: "Nature Tourism & Reservation Platform",
     year: "2024",
@@ -165,7 +210,7 @@ export const projects: Project[] = [
   },
   {
     id: "synergy",
-    number: "05",
+    number: "06",
     title: "SYNERGY",
     subtitle: "Disaster Volunteer Collaboration Platform",
     year: "2024",
@@ -196,7 +241,7 @@ export const projects: Project[] = [
   },
   {
     id: "smart-parking",
-    number: "06",
+    number: "07",
     title: "Smart Parking System",
     subtitle: "IoT Real-Time Telemetry Monitor",
     year: "2024",
